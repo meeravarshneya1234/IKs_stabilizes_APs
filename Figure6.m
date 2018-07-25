@@ -7,7 +7,7 @@
 % AP Clamp simulations performed in the O'Hara model
 
 %--- Functions used in this script:
-% main_program.m - runs single simulation 
+% main_program.m - runs single AP simulation 
 % main_APClamp.m - runs the AP clamp simulation using parfor loop 
 % plotting_APClamp.m - plots the waveforms from the main_APClamp.m function 
 

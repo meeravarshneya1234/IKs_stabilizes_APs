@@ -1,11 +1,26 @@
 function Xnew = clean_pop(settings,X)
+% clean_pop.m removes APs with EADs or that fail to repolarize from a population of APs. If there
+% are no EADs, it returns the original population. 
 
+% Inputs:
+% --> settings - AP stimulation protocol (PCL,nBeats,...)
+% --> X - Original population of APs that needs to be cleaned 
 
-%% Determine if the population has any EADs.
-[APfails,nEADs] = cleandata(X.APDs(:,1),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag);
+% Outputs:
+% --> Xnew - APs with EADs or failed to repolarize are removed (clean
+% population) 
+
+%--- Functions used in this script ---%
+% --* cleandata.m - Determines index of APs with EADs 
+% --* rerunAPs.m - If APs with EADs are present, this function reruns new
+% APs to replace the ones with EADs. (example: original population is 300,
+% 5 with EADs,function reruns 5 APs so output returns population of 300) 
+
+%% Determine if the population has any EADs
+[APfails,nEADs] = cleandata(X.APDs(:,1),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag); 
 [~,ind_failed] = find(APfails ==1); % number of failed to repolarize
 [~,ind_EADs] = find(nEADs==1); % number of EADs
-indexs = [ind_EADs ind_failed];
+indexs = [ind_EADs ind_failed]; %total 
 
 if isempty(indexs) % no EADs leave function 
     x = X.times(:,1);

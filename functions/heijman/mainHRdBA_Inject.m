@@ -231,7 +231,7 @@ if isempty(repoldex)
     APD = NaN;
 else
     repoltime = time(repoldex(1)) ;
-    APD = roundx((repoltime - tinit),1) ;
+    APD = round((repoltime - tinit),1) ;
 end
 
 end

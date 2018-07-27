@@ -1,13 +1,31 @@
 function [datatable] = main_program(settings)
+                            %% -- main_program.m -- %%
+% Description: Runs the assigned electrophysiology model and outputs
+% different metrics about the AP and current traces. 
 
+% Inputs:
+% --> settings - AP stimulation protocol (PCL,nBeats,...)
+
+% Outputs:
+% --> datatable - struct array with AP info including: APD, time matrix
+% and state variables, AUC of ICaL,IKs,IKr waveforms, ICaL,IKs,IKr currents, 
+% IKs Fraction. 
+
+%---: Functions used in this script :---%
+% --* parameters.m - Extracts the model parameters for the model called. 
+% --* ICs.m - Extracts the initial conditions for the model called. 
+% --* dydt functions - one for each model, calculates state variables.
+%--------------------------------------------------------------------------
 %% 1--- Load Model Parameters 
 % First check if running the optimized models, the celltype selected is endo.
 [p,c] = parameters(settings.model_name,settings.celltype);
+% p --> main model parameters
+% c --> model parameters that can be varied to build population 
 
 %% 2--- Load Model Initial Conditions of State Variables 
 [y0,V_ind] = ICs(settings.model_name,settings.steady_state,settings.PCL);
-%y0 = cell2mat(struct2cell(ic))';
-
+% y0 --> initial conditions 
+% Vind --> index of voltage in the initial conditions matrix
 %% 3--- Define Simulation Protocol 
 odefcn = str2func(strcat('dydt_',char(settings.model_name)));
 
@@ -96,13 +114,12 @@ for Ks=1:length(settings.Ks_scale) % for every Ks perturbation
         
         % determine fraction of IKs based on ratio of IKs and IKr
         IKs_Fraction = Area_Ks/(Area_Kr+Area_Ks);
-        
-%         figurestrings{Ca} = ['P_C_a* ' num2str(settings.Ca_scale(Ca))]; % for legend
-        
+                
         n = n+1;               
         disp(['Completed GKs*', num2str(settings.Ks_scale(Ks)),' & PCa*', num2str(settings.Ca_scale(Ca))])
         disp([int2str(n),' of ',int2str((length(settings.Ca_scale)*length(settings.Ks_scale))),' simulations completed.'])
         
+        %save data
         datatable.APDs(Ks,Ca) = APD;
         datatable.Area_Ca(Ks,Ca) = Area_Ca;
         datatable.Area_Ks(Ks,Ca) = Area_Ks;

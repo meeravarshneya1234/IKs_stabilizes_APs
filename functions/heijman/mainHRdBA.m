@@ -111,7 +111,7 @@ currents = []; % will later become a structure
 % Ti = [];
 % APDs = []; % now only storeLast number of APDs is saved
 % currents = []; % will later become a structure
-x0 = getInitialVector(settings,flags);
+x0 = getInitialVector(settings);
 
     if settings.applyVoltageClamp == 0
         
@@ -236,8 +236,8 @@ end
 
 end
 
-function Xinit = getInitialVector(settings,flags)
-    if flags.SS == 1
+function Xinit = getInitialVector(settings)
+    if settings.SS == 1
         if sum(settings.bcl == [1000]) > 0 && sum(settings.ISO == [0,1]) > 0 
             load('ICs_SS_Heijman_updated.mat')
             %str =['PCL_' num2str(settings.bcl)];

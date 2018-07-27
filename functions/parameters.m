@@ -1,7 +1,20 @@
-% -- parameters for each of the models used in the study
 function [p,c] = parameters(model_name,celltype)
+                            %% -- parameters.m -- %%
+% Description: Extracts the parameters for the model that is being analyzed. 
 
-%% FOX
+% Inputs:
+% --> model_name - name of model for which the parameters are needed.
+% options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
+% 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
+% --> celltype - human models allow for either 'endo','epi', or 'mid' cells
+% to studied. options: TT04, TT06, Ohara - 'epi', 'endo', 'mid'; Grandi - 'epi', 'endo'
+% remaining models - ''
+
+% Outputs:
+% --> p - struct array with main model parameters 
+% --> c - struct array with parameters to be varied to create population
+%--------------------------------------------------------------------------
+%% FOX - Dog  Model 
 if strcmp(model_name,'Fox')
     
     % Physical constants
@@ -70,7 +83,7 @@ if strcmp(model_name,'Fox')
     p.KmCMDN = 2 ;                   % uM
     p.CSQNtot = 10000 ;              % uM
     p.KmCSQN = 600 ;                 % uM
-    %% HUND
+    %% HUND - Dog  Model 
 elseif strcmp(model_name,'Hund')
     % Physical constants
     p.F = 96485 ;                  % Faraday's constant, C/mol
@@ -153,7 +166,7 @@ elseif strcmp(model_name,'Hund')
     p.KmBSL = 0.0087 ;
     p.CaMK0 = 0.05 ;
     p.KmCaM = 0.0015 ;
-    %% LIVSHITZ
+    %% LIVSHITZ - Guinea Pig Model 
 elseif strcmp(model_name,'Livshitz')
     % Physical constants
     p.F = 96485 ;                  % Faraday's constant, C/mol
@@ -249,7 +262,7 @@ elseif strcmp(model_name,'Livshitz')
     p.CSQNtot = 10 ;
     p.KmCSQN = 0.8 ;
     
-    %% DEVENYI
+    %% DEVENYI - Guinea Pig Model 
 elseif strcmp(model_name,'Devenyi')
     % Physical constants
     p.F = 96485 ;                  % Faraday's constant, C/mol
@@ -369,7 +382,7 @@ elseif strcmp(model_name,'Devenyi')
     c.kNCX = c.kNCX * scaling(11);
     c.IpCa_max = c.IpCa_max * scaling(12);
     c.Vserca = c.Vserca*scaling(13);
-    %% SHANNON
+    %% SHANNON - Rabbit Model 
 elseif strcmp(model_name,'Shannon')
     % % Physical parameters
     p.F = 96486.7;   % coulomb_per_mole (in model_parameters)
@@ -526,7 +539,7 @@ elseif strcmp(model_name,'Shannon')
     p.kon_TroponinC_Ca_Mg_Ca = 2.37;   % per_millimolar_per_millisecond (in cytosolic_Ca_buffer)
     p.kon_TroponinC_Ca_Mg_Mg = 3.0e-3;   % per_millimolar_per_millisecond (in cytosolic_Ca_buffer)
 
-    %% TT04
+    %% TT04 - Human Model 
 elseif strcmp(model_name,'TT04')
     p.celltype = celltype;
     % Physical constants
@@ -604,7 +617,7 @@ elseif strcmp(model_name,'TT04')
     else
         fprintf('Invalid cell type entered. Please re-enter cell type and try again.')
     end
-    %% TT06
+    %% TT06 - Human Model 
 elseif strcmp(model_name,'TT06') 
     p.celltype = celltype;
     % Physical constants
@@ -707,7 +720,7 @@ elseif strcmp(model_name,'TT06')
     p.BufSR = 10000 ;               % uM
     p.KbufSR = 300 ;                % uM
     
-    %% GRANDI
+    %% GRANDI - Human Model 
 elseif strcmp(model_name,'Grandi')
     p.celltype = celltype;
     % Constants
@@ -864,7 +877,7 @@ elseif strcmp(model_name,'Grandi')
         fprintf('Invalid cell type entered. Please re-enter cell type and try again.')
     end
     
-    %% O'HARA
+    %% O'HARA - Human Model 
 elseif strcmp(model_name,'Ohara') 
     
     p.celltype = celltype;

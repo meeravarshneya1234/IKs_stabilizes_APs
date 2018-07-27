@@ -1,6 +1,7 @@
 function Xnew = clean_pop(settings,X)
-% clean_pop.m removes APs with EADs or that fail to repolarize from a population of APs. If there
-% are no EADs, it returns the original population. 
+                            %% -- clean_pop.m --%%
+% Description: removes APs with EADs or that fail to repolarize from a 
+% population of APs. If there are no EADs, it returns the original population. 
 
 % Inputs:
 % --> settings - AP stimulation protocol (PCL,nBeats,...)

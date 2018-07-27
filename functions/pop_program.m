@@ -1,23 +1,32 @@
 function datatable = pop_program(settings)
+                            %% -- pop_program.m -- %%
+% Description: Runs a heterogenous population. 
+
+% Inputs:
+% --> settings - AP stimulation protocol (PCL,nBeats,...)
+
+% Outputs:
+% --> datatable - struct array with AP info including: APD, time matrix
+% and state variables.
+
+%---: Functions used in this script :---%
+% --* parameters.m - Extracts the model parameters for the model called. 
+% --* ICs.m - Extracts the initial conditions for the model called. 
+% --* scaling_factors.m - Varies the parameters to create the population.
+% --* dydt functions - one for each model, calculates state variables.
+%--------------------------------------------------------------------------
 %% 1--- Load Model Parameters 
 [p,c] = parameters(settings.model_name,settings.celltype);
+% p --> main model parameters
+% c --> model parameters that can be varied to build population 
 
 %% 2--- Load Model Initial Conditions of State Variables 
-% ic = inital_conditions(settings.model_name);
-% y0 = cell2mat(struct2cell(ic))';
-% V_ind=find(y0==ic.V); %determine where within state variables, the index of voltage
 [y0,V_ind] = ICs(settings.model_name,settings.steady_state,settings.PCL);
+% y0 --> initial conditions 
+% Vind --> index of voltage in the initial conditions matrix
 
 %% 3--- Define Simulation Protocol 
-% if isempty(strfind(settings.model_name,'_'))
-%     odefcn = str2func(strcat('dydt_',settings.model_name));
-% else 
-%     idcs=(strfind(settings.model_name,'_'));
-%     odefcn = str2func(strcat('dydt_',settings.model_name(1:(idcs-1))));
-% end 
 odefcn = str2func(strcat('dydt_',char(settings.model_name)));
-
-
 stim_starts = settings.stim_delay + settings.PCL*(0:settings.nBeats-1)  ;
 stim_ends = stim_starts + settings.stim_dur ;
 

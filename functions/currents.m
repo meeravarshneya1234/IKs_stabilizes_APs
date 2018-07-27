@@ -1,5 +1,18 @@
 function [ICaL,IKr,IKs]=currents(model_name,state_vars,p,c)
+                            %% -- currents.m -- %%
+% Description: Calculates the ICaL, IKs, and IKr currents for the AP. 
 
+% Inputs:
+% --> model_name - name of model for which the parameters are needed.
+% --> state_vars - matrix of state variables calculated 
+% --> p - struct array with main model parameters 
+% --> c - struct array with parameters to be varied to create population
+
+% Outputs:
+% --> ICaL - L-type calcium current 
+% --> IKs  - slow delayed rectifier potassium current  
+% --> IKr -  rapid delayed rectifier potassium current 
+%--------------------------------------------------------------------------
 %% FOX
 if strcmp(model_name,'Fox')
     [V,Cai,CaSR,f,d,m,h,j,fCa,xKr,xKs,xto,yto] = deal(state_vars{:});

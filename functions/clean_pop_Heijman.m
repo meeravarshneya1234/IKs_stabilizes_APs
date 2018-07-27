@@ -1,11 +1,30 @@
 function Xnew = clean_pop_Heijman(settings,flags,X)
+%% -- clean_pop_Heijman.m --%%
+% Description: Removes APs with EADs or that fail to repolarize from the Heijman
+% population of APs. If there are no EADs, it returns the original population.
+
+% Inputs:
+% --: settings - struct array of AP stimulation protocol (PCL,nBeats,...)
+% --: flags - struct array of which PKA targets are blocked
+% --: X - struct array of original population of APs that needs to be cleaned
+
+% Outputs:
+% --: Xnew - struct array with APs with EADs or failed to repolarize are removed (clean
+% population)
+
+%---: Functions used in this script :---%
+% --* cleandata.m - Determines index of APs with EADs
+% --* rerunAPs.m - If APs with EADs are present, this function reruns new
+% APs to replace the ones with EADs. (example: original population is 300,
+% 5 with EADs,function reruns 5 APs so output returns population of 300)
+
 %% Determine if the population has any EADs.
-[APfails,nEADs] = cleandata(X.APDs(:,1),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag);
+[APfails,nEADs] = cleandata(cell2mat(X.APDs),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag);
 [~,ind_failed] = find(APfails ==1); % number of failed to repolarize
 [~,ind_EADs] = find(nEADs==1); % number of EADs
 indexs = [ind_EADs ind_failed];
 
-if isempty(indexs) % no EADs leave function 
+if isempty(indexs) % no EADs leave function
     x = X.times(:,1);
     y = X.V(:,1);
     
@@ -16,34 +35,34 @@ if isempty(indexs) % no EADs leave function
     hold on
     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
     title('Heijman Original')
-
+    
     Xnew = X;
     disp('No EADs in Heijman population.')
-else % EADs present 
+else % EADs present
     
     % plot original population
     x = X.times(:,1); y = X.V(:,1);
     figure
-    fig = gcf;   
-    figure(fig) 
+    fig = gcf;
+    figure(fig)
     subplot(1,3,1)
     hold on
     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
     title('Heijman Original')
     
-    % plot APs with EADs in population 
-    x = X.times(indexs,1); y = X.V(indexs,1);
+    % plot APs with EADs in population
+    x = X.times(indexs,1); y = X.volts(indexs,1);
     figure(fig)
     subplot(1,3,2)
     hold on
     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
     title('Heijman APs with EADs')
     
-    % new matrix without the APs with EADs 
+    % new matrix without the APs with EADs
     clean_datatable = [];
     clean_datatable.times = X.times(~(nEADs' + APfails'));
     clean_datatable.V= X.V(~(nEADs' + APfails'));
-    clean_datatable.states = X.states(~(nEADs' + APfails'));
+    clean_datatable.states = X.state(~(nEADs' + APfails'));
     clean_datatable.APDs = X.APDs(~(nEADs' + APfails'));
     clean_datatable.scaling = X.scalings(~(nEADs' + APfails'),:);
     
@@ -51,16 +70,17 @@ else % EADs present
     y = clean_datatable.V(:,1);
     
     % plot population without EADs "cleaned"
-    figure(fig) 
+    figure(fig)
     subplot(1,3,3)
     hold on
     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
     title('Heijman EADs removed')
     set(fig,'Position',[20,20,600,300])
     
-    loop = length(indexs);% number of APs to rerun 
     
-    while loop > 0 % loop through keep only APs that do not form EADs 
+    loop = length(indexs);% number of APs to rerun
+    
+    while loop > 0 % loop through keep only APs that do not form EADs
         scalings = exp(settings.sigma*randn(18,length(indexs)))' ;
         variations = loop;
         X1 = []; Xnew = [];
@@ -84,13 +104,13 @@ else % EADs present
         Xnew.states(n:settings.totalvars,1)=clean_datatable.states;
         Xnew.APDs(n:settings.totalvars,1)=clean_datatable.APDs;
         Xnew.scalings(n:settings.totalvars,:) = clean_datatable.scaling;
-              
+        
         [APfails,nEADs] = cleandata(Xnew.APDs(:,1),Xnew.times(:,1),Xnew.V(:,1),settings.t_cutoff,settings.flag);
         [number_of_failed,~] = find(APfails ==1); % number of failed to repolarize
         [number_of_EADs,~] = find(nEADs==1); % number of EADs
         
-        loop = length(number_of_failed) + length(number_of_EADs);       
-       
+        loop = length(number_of_failed) + length(number_of_EADs);
+        
         %check to make sure no duplicates in scalings after rerun
         xnew = cell2mat(Xnew.scalings);
         [u,I,J] = unique(xnew, 'rows', 'first');
@@ -107,6 +127,6 @@ else % EADs present
     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
     title('Heijman final')
     disp(['Number of EADs in Heijman population: ' num2str(length(indexs))])
-
+    
 end
 

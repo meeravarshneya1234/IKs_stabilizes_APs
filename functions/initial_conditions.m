@@ -1,5 +1,14 @@
-% -- parameters for each of the models used in the study
-function ic = inital_conditions(model_name)
+function ic = initial_conditions(model_name)
+                            %% -- initial_conditions.m -- %%
+% Description: Extracts original paper initial conditions for the model called. 
+
+% Inputs:
+% --: model_name - name of model for which the parameters are needed.
+% options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
+% 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
+
+% Outputs:
+% --> ic - struct array with initial conditions
 
 %% FOX
 if strcmp(model_name,'Fox')

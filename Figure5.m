@@ -1,66 +1,59 @@
-modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT04','TT06','Ohara','Grandi'};
-% options - 'Fox', 'Hund', 'Livshitz',
-% 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+%% Figure 5:Comparison of population variability & susceptibility to EADs 
+%% across models from multiple species. 
+%--- Note: 
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these 
+% settings.
 
-celltypes = {'','','','','','endo','endo','endo','endo'}; % size should be same as model_name, enter one for each model
-%celltypes = {'endo'}; % size should be same as model_name, enter one for each model
-% options only available for human models as follows
-% TT04, TT06, Ohara - 'epi', 'endo', 'mid'
-% Grandi - 'epi', 'endo'
+%--- Description of Figures: 
+% To test whether the protective effect of high IKs levels can be considered 
+% a general phenomenon, we examined population variability and the susceptibility 
+% to EADs across models. 
 
-settings.PCL =1000 ;  % Interval bewteen stimuli,[ms]
-settings.stim_delay = 100 ; % Time the first stimulus, [ms]
-settings.stim_dur = 2 ; % Stimulus duration
-amps = [36.4,32.2,35,35,30.9,25,22.6,32.2,20.6]; % Stimulus amplitude 
-settings.nBeats = 100 ; % Number of beats to simulate 
-settings.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
-settings.steady_state = 1;
-settings.Inject = 0:0.1:3; %current to inject into the models 
-%% Run Simulation 
+%--- Functions used in this script:
+% main_program.m - runs simulation 
+% mtit - create main title (from MATLAB file exchange) 
+%--------------------------------------------------------------------------
+%% Figure 5A & 5B
+% Data saved from earlier figures, plotted here:
+% (1) IKs Fraction calculated in FigureS3.m
+% (2) APD Spread calculated in Figure3.m and FigureS4.m 
+% (3) EAD calculated in Figure4.m and FigureS5.m 
+% (4) Inject calculated in FigureS8.m 
+modelnames = {'Fox','Hund','Heijman','Shannon','Livshitz','Devenyi','TT04','TT06','Ohara','Grandi'};
+load('data.mat')
+IKs_Fraction = cell2mat(cellfun(@(x) datatable.(x).IKs_Fraction,modelnames,'UniformOutput',0));
+APDSpread = cell2mat(cellfun(@(x) datatable.(x).APDSpread,modelnames,'UniformOutput',0));
+EAD = cell2mat(cellfun(@(x) datatable.(x).EAD,modelnames,'UniformOutput',0));
+Inject = cell2mat(cellfun(@(x) datatable.(x).Injection,modelnames,'UniformOutput',0));
 
-for i = 1:length(modelnames) 
-    settings.model_name = modelnames{i};
-    settings.celltype = celltypes{i};
-    settings.stim_amp = amps(i);
-    X = inject_current_program(settings);    
-    Xnew = reformat_data(X,length(settings.Inject));  
-    APDs = cell2mat(Xnew.APDs);
-    
-    % find which 
-    for ii = 1:length(APDs)
-        if APDs(ii) > 500
-            APDs(ii) = NaN;
-        end
-    end
-    index = find(isnan(APDs),1);
-    if isempty(index)
-        index = length(APDs);
-    end
-    
-    Xnew.change_APD = ((APDs-APDs(1))/APDs(1))*100;
-    Xnew.inject_factor = settings.Inject(index);
-    str = modelnames{i};
-    inject_datatable.(str) = Xnew;     
-end 
-
-load('baseline_data.mat')
-IKs_Fraction = cell2mat(cellfun(@(x) base_datatable.(x).IKs_Fraction,modelnames,'UniformOutput',0));
-
-inject_factor = cell2mat(cellfun(@(x) inject_datatable.(x).inject_factor,modelnames,'UniformOutput',0));
-change = cell2mat(cellfun(@(x) inject_datatable.(x).change_APD(2),modelnames,'UniformOutput',0));  
-
-figure
-plot(IKs_Fraction,inject_factor,'o')
-text(IKs_Fraction,inject_factor, modelnames);
-h=lsline;
-xlabel('IKs Fraction')
-ylabel('Current Injection (A/F)')
-
-
+% Figure 5A
 figure 
-plot(IKs_Fraction,change,'o')
-text(IKs_Fraction,change, modelnames);
+plot(IKs_Fraction,APDSpread,'o','MarkerSize',10,...
+    'MarkerEdgeColor','red',...
+    'MarkerFaceColor',[1 .6 .6])
+text(IKs_Fraction,APDSpread, modelnames);
 h=lsline;
 xlabel('IKs Fraction')
-ylabel('Change in APD')
+ylabel('APD Spread')
+
+% Figure 5B
+figure 
+plot(IKs_Fraction,abs(EAD),'o','MarkerSize',10,...
+    'MarkerEdgeColor','blue',...
+    'MarkerFaceColor',[.6 .6 1])
+text(IKs_Fraction,abs(EAD), modelnames);
+h=lsline;
+xlabel('IKs Fraction')
+ylabel('AUC ICaL Before EAD')
+
+% Figure 5C
+figure 
+plot(IKs_Fraction,Inject,'o','MarkerSize',10,...
+    'MarkerEdgeColor','green',...
+    'MarkerFaceColor',[.6 1 .6])
+text(IKs_Fraction,Inject, modelnames);
+h=lsline;
+xlabel('IKs Fraction')
+ylabel('Current Injected')
 

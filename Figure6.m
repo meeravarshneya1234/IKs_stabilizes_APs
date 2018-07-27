@@ -1,4 +1,5 @@
-%% Figure 6:AP clamp simulations illustrate changes in K+ currents with alterations in AP shape. 
+%% Figure 6:AP clamp simulations illustrate changes in K+ currents with 
+%% alterations in AP shape. 
 %--- Note: 
 % Results displayed in manuscript were run using MATLAB 2016a on a 64bit
 % Intel Processor. For exact replication of figures it is best to use these settings.
@@ -6,7 +7,7 @@
 %--- Description of Figure: 
 % AP Clamp simulations performed in the O'Hara model
 
-%--- Functions used in this script:
+%---: Functions required to run this script :---%
 % main_program.m - runs single AP simulation 
 % main_APClamp.m - runs the AP clamp simulation using parfor loop 
 % plotting_APClamp.m - plots the waveforms from the main_APClamp.m function 

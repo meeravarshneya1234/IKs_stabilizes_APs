@@ -8,9 +8,10 @@
 % imposeing random variation in parameters controlling ionic current levels. 
 
 %--- Functions used in this script ---%
-% --* main_program.m - runs single AP simulation 
-% --* main_APClamp.m - runs the AP clamp simulation using parfor loop 
-% --* plotting_APClamp.m - plots the waveforms from the main_APClamp.m function 
+% --* pop_program.m - runs population simulation using parfor loop
+% --* reformat_data.m - reformats data collected during parallel loop into
+% easier format
+% --* clean_pop.m - inspects for AP population for EADs and returns population with no EADs 
 %% Set Up Simulation Protocol 
 modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT06','Ohara'};
 % options - 'Fox', 'Hund', 'Livshitz',
@@ -40,7 +41,7 @@ settings.sigma = 0.2; % standard deviation assigned for population
 % settings for clean_pop.m function 
 settings.totalvars = settings.variations;
 t_cutoffs = [5 7 5 5 5 5 5]; % time between EAD cutoff, order based on order for modelnames
-settings.flag = 0;
+settings.flag = 0; % set to 1 only if the model has notch like Heijman 
 
 %% Run Simulation 
 

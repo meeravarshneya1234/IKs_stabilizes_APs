@@ -1,38 +1,31 @@
-%% Figure 4:Susceptibility to Early Afterdepolarizations (EADs) in Grandi and TT04 models. 
+%% Figure 4:Susceptibility to Early Afterdepolarizations (EADs) in Grandi 
+%% and TT04 models. 
 %--- Note: 
 % Results displayed in manuscript were run using MATLAB 2016a on a 64bit
-% Intel Processor. For exact replication of figures it is best to use these settings.
+% Intel Processor. For exact replication of figures it is best to use these 
+% settings.
 
 %--- Description of Figures: 
 % Calcium perturbations and calculated ICaL for Grandi and TT04
 
 %--- Functions used in this script:
 % main_program.m - runs simulation 
-% * find_APD.m - determines APD when AP returns to -75 mV
-% * parameters.m - lists the model parameters 
-% * ICs - returns initial conditions - either steady state or ones from
-% paper
-%   * inital_conditions.m - lists the model initial conditions from paper
-%   if user does not want to use steady state 
-% * currents.m - calculates ICaL, IKs, IKr 
-% dydt functions for each model 
-% plotting.m - graphs the figures
-% * mtit - create main title (from MATLAB file exchange) 
-
+% mtit - create main title (from MATLAB file exchange) 
+%--------------------------------------------------------------------------
 %% Set Up Simulation Protocol 
 modelnames = {'TT04','Grandi'};
 % options - 'Fox', 'Hund', 'Livshitz',
 % 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
-celltypes = {'endo','endo'}; % size should be same as model_name, enter one for each model
-% options only available for human models as follows
+celltypes = {'endo','endo'}; % size should be same as model_name
+% enter one for each model, options only for human models:
 % TT04, TT06, Ohara - 'epi', 'endo', 'mid'
 % Grandi - 'epi', 'endo'
 
 settings.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings.stim_delay = 100 ; % Time the first stimulus, [ms]
 settings.stim_dur = 2 ; % Stimulus duration
-amps = [25,20.6]; %Stimulus amplitude for each model, same order as model names
+amps = [25,20.6]; %Stimulus amplitude for each model,same order as modelnames
 nBeats = [91 91]; %number of beats to stimulate first EAD 
 
 settings.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats

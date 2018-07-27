@@ -1,4 +1,5 @@
-%% Figure 3: Dramatic differences seen between two human myocyte models in K+ currents and population variability.
+%% Figure 3: Dramatic differences seen between two human myocyte models in 
+%% K+ currents and population variability.
 %--- Note: 
 % Results displayed in manuscript were run using MATLAB 2016a on a 64bit
 % Intel Processor. For exact replication of figures it is best to use these settings.
@@ -8,17 +9,9 @@
 % APs + IKr and IKs Waveforms for Grandi and TT04 Models + IKs Fraction
 % Barplot
 
-%--- Functions used in this script:
-% main_program.m - runs simulation 
-% * find_APD.m - determines APD when AP returns to -75 mV
-% * parameters.m - lists the model parameters 
-% * ICs - returns initial conditions - either steady state or ones from
-% paper
-%   * inital_conditions.m - lists the model initial conditions from paper
-%   if user does not want to use steady state 
-% * currents.m - calculates ICaL, IKs, IKr 
-% dydt functions for each model 
-
+%---: Functions required to run this script :---%
+% main_program.m - runs single AP simulation 
+%--------------------------------------------------------------------------
 %% Set Up Simulation Protocol 
 modelnames = {'TT04','Grandi'};
 % options - 'Fox', 'Hund', 'Livshitz',
@@ -92,14 +85,8 @@ xtickangle(90)
 
 %--- Functions used in this script:
 % pop_program.m - runs simulation 
-% * find_APD.m - determines APD when AP returns to -75 mV
-% * parameters.m - lists the model parameters 
-% * ICs - returns initial conditions - either steady state or ones from paper
-%   * inital_conditions.m - lists the model initial conditions from paper
-%   if user does not want to use steady state 
-% * currents.m - calculates ICaL, IKs, IKr 
 % histoutline.m - create histograms of distribution (from MATLAB file exchange) 
-
+%--------------------------------------------------------------------------
 %% Set Up Simulation Protocol 
 modelnames = {'Grandi','TT04'};
 % options - 'Fox', 'Hund', 'Livshitz',

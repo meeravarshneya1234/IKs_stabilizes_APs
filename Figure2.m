@@ -1,4 +1,5 @@
-%% Figure 2:Altering the contribution of IKs within the same model influences arrhythmia susceptibility. 
+%% Figure 2:Altering the contribution of IKs within the same model influences 
+%% arrhythmia susceptibility. 
 %--- Note: 
 % Results displayed in manuscript were run using MATLAB 2016a on a 64bit
 % Intel Processor. For exact replication of figures it is best to use these settings.
@@ -7,18 +8,9 @@
 % Calcium perturbations and calculated ICaL for high iks and low iks
 % versions of Ohara model. 
 
-%--- Functions used in this script:
-% main_program.m - runs simulation 
-% * find_APD.m - determines APD when AP returns to -75 mV
-% * parameters.m - lists the model parameters 
-% * ICs - returns initial conditions - either steady state or ones from
-% paper
-%   * inital_conditions.m - lists the model initial conditions from paper
-%   if user does not want to use steady state 
-% * currents.m - calculates ICaL, IKs, IKr 
-% dydt functions for each model 
-% plotting.m - graphs the figures
-% * mtit - create main title (from MATLAB file exchange) 
+%---: Functions required to run this script :---%
+% main_program.m - runs single AP simulation 
+%--------------------------------------------------------------------------
 %% Set Up Simulation 
 settings1.model_name = 'Ohara';
 % options - 'Fox', 'Hund', 'Livshitz',
@@ -51,7 +43,18 @@ for i = 1:length(strs)
     settings1.Kr_scale = Kr_scale(i);
     settings1.nBeats = nBeats(i);
     X = main_program(settings1);
-    plotting(X,settings1)
+    
+    figure
+    plot(X.times{1,1},X.V{1,1},'linewidth',2)
+    hold on
+    plot(X.times{1,2},X.V{1,2},'linewidth',2)
+    plot(X.times{1,3},X.V{1,3},'linewidth',2)
+    ylim([-100 60])
+    title([strs{i} ' IKs Model'])
+    legend('ICaL*1','ICaL*7.5','ICaL*15.5')
+    xlabel('time (ms)')
+    ylabel('Voltage (mV)')
+    
     highlow_EAD.(strs{i}) = X;
 end
 
@@ -61,7 +64,7 @@ end
 % models using the Ohara model. 
 
 %% Set Up Simulation 
-settings.model_name = 'Ohara';
+settings2.model_name = 'Ohara';
 % options - 'Fox', 'Hund', 'Livshitz',
 % 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
@@ -103,3 +106,11 @@ for i = 1:3
     indxs = find(highlow_multipleEAD.(strs{i}).APDs<250);
     highlow_multipleEAD.(strs{i}).APDs(1,indxs) = NaN;
 end 
+
+figure
+plot(settings2.Ca_scale,highlow_multipleEAD.low.APDs,'linewidth',2,'color','b')
+hold on
+plot(settings2.Ca_scale,highlow_multipleEAD.base.APDs,'linewidth',2,'color','k')
+plot(settings2.Ca_scale,highlow_multipleEAD.high.APDs,'linewidth',2,'color','r')
+xlabel('ICaL Factor')
+ylabel('APDs (ms)')

@@ -1,24 +1,36 @@
-%% Figure 1: Altering the contribution of IKs within the same model influences population variability. 
-%--- Note: 
+%% Figure 1: Altering the contribution of IKs within the same model 
+%% influences population variability. 
+
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For all questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request on the github repo:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
 % Results displayed in manuscript were run using MATLAB 2016a on a 64bit
-% Intel Processor. For exact replication of figures it is best to use these settings.
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
 
 %% Figure 1A 
-%--- Description of Figure: 
-% Simulations in high(10x) and low(0.1x) IKs models performed in Ohara Model  
+%--- Description of Figure:
+% Simulations in high(10x) and low(0.1x) IKs models performed in Ohara
+% Model
 
 %---: Functions required to run this script :---%
-% main_program.m - runs single AP simulation 
+% main_program.m - runs single AP simulation
 %--------------------------------------------------------------------------
-%% Set Up Simulation 
+%---- Set Up High and Low IKs Simulation ----%
 settings1.model_name = 'Ohara';
-% options - 'Fox', 'Hund', 'Livshitz','Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+% options -> 'Fox','Hund','Livshitz','Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
 settings1.celltype ='endo'; % size should be same as modelnames, enter one for each model
-% options only available for human models as follows
-% TT04, TT06, Ohara - 'epi', 'endo', 'mid'
-% Grandi - 'epi', 'endo'
-% remaining models - ''
+% options only available for human models as follows:
+% TT04, TT06, Ohara -> 'epi', 'endo', 'mid' 
+% Grandi -> 'epi', 'endo' 
+% remaining models -> ''
 
 settings1.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings1.stim_delay = 100 ; % Time of first stimulus, [ms]
@@ -28,17 +40,15 @@ settings1.nBeats = 100; % Number of beats to simulate
 settings1.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
 settings1.steady_state = 1; % 1 - run steady state conditions 0 - do not run steady state conditions 
 
-% Ks, Kr, Ca scaling must have the same length vector. Mainly change
-% Ks_scale and Kr_scale when you want to test what different ratios of the
-% two look like 
+% Ks, Kr, Ca scaling must have the same length vector. 
 settings1.Ks_scale = [0.1 10]; % perturb IKs, set to 1 for baseline
 settings1.Kr_scale = [1.08 0.39]; % perturb IKr, set to 1 for baseline
 settings1.Ca_scale = 1; % perturb ICaL, set to 1 for baseline
 
-%% Run High and Low IKs Simulation
+%---- Run Simulation ----%
 X1 = main_program(settings1);
 
-%% Run Baseline IKs Simulation
+%---- Set Up and Run Baseline IKs Simulation ----%
 settings1.Ks_scale = 1; % perturb IKs, set to 1 for baseline
 settings1.Kr_scale = 1; % perturb IKr, set to 1 for baseline
 settings1.nBeats = 1; % Number of beats to simulate 
@@ -87,27 +97,27 @@ title('Ohara High Model')
 xlabel('time(ms)')
 ylabel('Current (A/F)')
 
-% plot Iks fractions 
+% plot Iks fractions
 figure
 IKs_Fractions = [X1.IKs_Fraction(1) X1_base.IKs_Fraction X1.IKs_Fraction(2)];
 bar(IKs_Fractions,0.5)
 xticklabels({'Low','Baseline','High'})
 ylabel('IKs Fraction')
 
-% zoomed in on low iks model iks 
+% zoomed in on low iks model iks
 figure
 bar(X1.IKs_Fraction(1),0.5)
 ylim([0 0.01])
 ylabel('low IKs Fraction zoomed in')
 
 %% Figures 1C & 1D 
-%--- Description of Figures: 
-% Population variability and calculated APD Spreads for high iks and low iks
-% versions of the Ohara model. 
+%--- Description of Figures:
+% Population variability and calculated APD Spreads for high iks and low
+% iks versions of the Ohara model.
 
 %--- Functions used in this script:
 % pop_program.m - runs population simulation 
-% histoutline.m - create histograms of distribution (from MATLAB file exchange) 
+% histoutline.m - create histograms of distribution (from MATLAB file exchange)
 
 %% Set Up Simulation 
 settings2.model_name = 'Ohara';
@@ -115,9 +125,8 @@ settings2.model_name = 'Ohara';
 % 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
 settings2.celltype = 'endo'; % size should be same as model_name, enter one for each model
-% options only available for human models - 'epi', 'endo', 'mid',
-% TT04, TT06, Ohara - 'epi', 'endo', 'mid'
-% Grandi - 'epi', 'endo'
+% options only available for human models - 'epi', 'endo', 'mid', TT04,
+% TT06, Ohara - 'epi', 'endo', 'mid' Grandi - 'epi', 'endo'
 
 settings2.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings2.stim_delay = 100 ; % Time the first stimulus, [ms]
@@ -129,7 +138,7 @@ settings2.steady_state = 1;% 1 - run steady state conditions 0 - do not run stea
 
 % Ks, Kr, and Ca scaling must have the same length vector. Mainly change
 % Ks_scale and Kr_scale when you want to test what different ratios of the
-% two look like 
+% two look like
 settings2.Ks_scale = [0.1 1 10]; % perturb IKs, set to 1 for baseline
 settings2.Kr_scale = [1.08 1 0.39]; % perturb IKr, set to 1 for baseline
 settings2.variations = 300;
@@ -142,7 +151,7 @@ figure
 pop1 = gcf;
 colors = 'bkr';
 for i = 1:3    
-    % histogram calculations 
+    % histogram calculations
     APDs = X2.APDs(:,i);
     temp = min(APDs):25:max(APDs);
     bins = linspace(min(APDs),max(APDs),length(temp));

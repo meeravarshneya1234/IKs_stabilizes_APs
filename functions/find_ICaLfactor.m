@@ -1,8 +1,8 @@
-function final_factor = find_ICaLfactor(ICaL_Factor,settings,flags)
+function final_factor = find_ICaLfactor(ICaL_Factor,settings,flags,sims)
 
 total = [];
 n = 0.1;
-
+settings.ISO = flags.ISO;
 while isempty(total)
     settings.ICaLB = ICaL_Factor;
     [currents,State,Ti,APD]=mainHRdBA(settings,flags);
@@ -17,14 +17,17 @@ while isempty(total)
     plot(Ti,State(:,1),'linewidth',2)
     
     if isempty(total)
-        disp(['Ca_scale: ' num2str(ICaL_Factor) ' no EADs.'])
-        ICaL_Factor = ICaL_Factor + n;
+        disp([sims ' - Ca_scale: ' num2str(ICaL_Factor) ' no EADs.'])
+        ICaL_Factor = ICaL_Factor + n;    
+        close(gcf)
+
     else
         beats = (settings.freq - (settings.storeLast - 1)):1:settings.freq;
-        disp(['EADs occur at a ICaL Factor of ' num2str(ICaL_Factor) ' on beat ' num2str(beats(total(1))) '.'])
+        disp([sims ' - EADs occur at a ICaL Factor of ' num2str(ICaL_Factor) ' on beat ' num2str(beats(total(1))) '.'])
         final_factor = ICaL_Factor;
+        title([sims ' : ICaL Factor - ' num2str(final_factor)])    
     end
-    close(gcf)
+    
 end
 
 % total = [];

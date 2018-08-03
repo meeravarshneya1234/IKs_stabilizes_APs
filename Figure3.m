@@ -1,26 +1,41 @@
-%% Figure 3: Dramatic differences seen between two human myocyte models in 
+%% Figure 3: Dramatic differences seen between three human myocyte models in 
 %% K+ currents and population variability.
-%--- Note: 
-% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
-% Intel Processor. For exact replication of figures it is best to use these settings.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------------------------------------------------------------------
 %% Figure 3A & 3B
 %--- Description of Figure: 
-% APs + IKr and IKs Waveforms for Grandi and TT04 Models + IKs Fraction
-% Barplot
+% APs + IKr and IKs Waveforms for human models - Grandi, Ohara, and TT04 
+% Models + IKs Fraction Barplot. All panels with Ohara data taken from the 
+% code in Figure 1. 
 
 %---: Functions required to run this script :---%
 % main_program.m - runs single AP simulation 
 %--------------------------------------------------------------------------
-%% Set Up Simulation Protocol 
+%%
+%---- Set Up High and Low IKs Simulation ----%
 modelnames = {'TT04','Grandi'};
-% options - 'Fox', 'Hund', 'Livshitz',
-% 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+% options -> 'Fox','Hund','Livshitz','Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
-celltypes = {'endo','endo'}; % % size should be same as model_name, enter one for each model
-% options only available for human models as follows
-% TT04, TT06, Ohara - 'epi', 'endo', 'mid'
-% Grandi - 'epi', 'endo'
+celltypes = {'endo','endo'}; % size should be same as modelnames, enter one for each model
+% options only available for human models as follows:
+% TT04, TT06, Ohara -> 'epi', 'endo', or 'mid' 
+% Grandi -> 'epi' or 'endo' 
+% remaining models -> ''
 
 settings1.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings1.stim_delay = 100 ; % Time the first stimulus, [ms]
@@ -30,16 +45,14 @@ settings1.nBeats = 1 ; % Number of beats to simulate
 settings1.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
 settings1.steady_state = 1;% Run models using the steady state initial conditions 
 
-% Ks, Kr, Ca scaling must have the same length vector. Mainly change
-% Ks_scale and Kr_scale when you want to test what different ratios of the
-% two look like 
+% Ks, Kr, Ca scaling must have the same length vector. 
 settings1.Ks_scale = 1; % perturb IKs, set to 1 for baseline
 settings1.Kr_scale = 1; % perturb IKr, set to 1 for baseline
 settings1.Ca_scale = 1; % perturb ICaL, set to 1 for baseline
 
-%% Run Simulation
-% for loop going through each model 
-for i = 1:length(modelnames)
+%---- Run Simulation ----%
+%% Plot Figure 3A - Baseline AP plots, IKs and IKr waveforms of each model 
+for i = 1:length(modelnames)% for loop going through each model 
     settings1.model_name = modelnames{i};
     settings1.celltype = celltypes{i};
     settings1.stim_amp = amps(i);
@@ -69,8 +82,7 @@ for i = 1:length(modelnames)
     X1.(str) = X;
 end
 
-% IKs Fraction Bar Plots 
-figure 
+%% Figure 3B - IKs Fractions 
 barplot = gcf;
 ax_summary = axes('parent', barplot);
 IKs_Fractions = [X1.Grandi.IKs_Fraction X1.TT04.IKs_Fraction];
@@ -79,21 +91,26 @@ set(ax_summary, 'xticklabel',{'Grandi','TT04'})
 ylabel('IKs Fraction')
 xtickangle(90)
 
+%--------------------------------------------------------------------------
 %% Figures 3C & 3D 
 %--- Description of Figures: 
-% Population variability and calculated APD Spreads for Grandi and TT04. 
+% Population variability and calculated APD Spreads for Grandi, Ohara, TT04.
+% All panels with Ohara data taken from the code in Figure 1. 
 
 %--- Functions used in this script:
 % pop_program.m - runs simulation 
 % histoutline.m - create histograms of distribution (from MATLAB file exchange) 
 %--------------------------------------------------------------------------
-%% Set Up Simulation Protocol 
+%%
+%---- Set Up Population Simulations ----%
 modelnames = {'Grandi','TT04'};
-% options - 'Fox', 'Hund', 'Livshitz',
-% 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+% options -> 'Fox','Hund','Livshitz','Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
-celltypes = {'endo','endo'}; % size should be same as model_name, enter one for each model
-% options only available for human models - 'epi', 'endo', 'mid'
+celltypes = {'endo','endo'}; % size should be same as modelnames, enter one for each model
+% options only available for human models as follows:
+% TT04, TT06, Ohara -> 'epi', 'endo', or 'mid' 
+% Grandi -> 'epi' or 'endo' 
+% remaining models -> ''
 
 settings2.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings2.stim_delay = 100 ; % Time the first stimulus, [ms]
@@ -103,9 +120,7 @@ settings2.nBeats = 100 ; % Number of beats to simulate
 settings2.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
 settings2.steady_state = 1;% Run models using the steady state initial conditions 
 
-% Ks, Kr, Ca scaling must have the same length vector. Mainly change
-% Ks_scale and Kr_scale when you want to test what different ratios of the
-% two look like 
+% Ks, Kr, Ca scaling must have the same length vector. 
 settings2.Ks_scale = 1; % perturb IKs, set to 1 for baseline
 settings2.Kr_scale = 1; % perturb IKr, set to 1 for baseline
 settings2.Ca_scale = 1; % perturb ICaL, set to 1 for baseline
@@ -116,7 +131,8 @@ settings2.sigma = 0.2;
 settings2.t_cutoff = 3;
 settings2.flag = 0;
 
-%% Run Simulation 
+%---- Run Simulation ----%
+%% Plot Figure 3c & 3D - Populations and Histograms of populations
 figure % figure for histograms of each population 
 histos = gcf;
 colors = 'rb';

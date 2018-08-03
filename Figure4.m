@@ -1,45 +1,59 @@
 %% Figure 4:Susceptibility to Early Afterdepolarizations (EADs) in Grandi 
-%% and TT04 models. 
-%--- Note: 
-% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
-% Intel Processor. For exact replication of figures it is best to use these 
-% settings.
+%% TT04, and Ohara models. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------------------------------------------------------------------
+%% Figure 4
 %--- Description of Figures: 
-% Calcium perturbations and calculated ICaL for Grandi and TT04
+% Calcium perturbations and calculated ICaL for Grandi, Ohara, TT04
 
 %--- Functions used in this script:
 % main_program.m - runs simulation 
 % mtit - create main title (from MATLAB file exchange) 
 %--------------------------------------------------------------------------
-%% Set Up Simulation Protocol 
-modelnames = {'TT04','Grandi'};
-% options - 'Fox', 'Hund', 'Livshitz',
-% 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+%%
+%---- Set Up Simulation ----%
+modelnames = {'TT04','Grandi','Ohara'};
+% options -> 'Fox','Hund','Livshitz','Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
 
-celltypes = {'endo','endo'}; % size should be same as model_name
-% enter one for each model, options only for human models:
-% TT04, TT06, Ohara - 'epi', 'endo', 'mid'
-% Grandi - 'epi', 'endo'
+celltypes = {'endo','endo','endo'}; % size should be same as modelnames, enter one for each model
+% options only available for human models as follows:
+% TT04, TT06, Ohara -> 'epi', 'endo', or 'mid' 
+% Grandi -> 'epi' or 'endo' 
+% remaining models -> ''
 
 settings.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings.stim_delay = 100 ; % Time the first stimulus, [ms]
 settings.stim_dur = 2 ; % Stimulus duration
-amps = [25,20.6]; %Stimulus amplitude for each model,same order as modelnames
-nBeats = [91 91]; %number of beats to stimulate first EAD 
-
+amps = [25,20.6,32.2]; % Stimulus amplitude (see Supplement Table 1 for details) 
+nBeats = [91 91 91]; %number of beats to stimulate first EAD 
 settings.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
-settings.steady_state = 1;
-% Ks, Kr, Ca scaling must have the same length vector. Mainly change
-% Ks_scale and Kr_scale when you want to test what different ratios of the
-% two look like 
+settings.steady_state = 1;% 1 - run steady state conditions 0 - do not run steady state conditions 
+
+% Ks, Kr, Ca scaling must have the same length vector. 
 settings.Ks_scale = 1; % perturb IKs, set to 1 for baseline
 settings.Kr_scale = 1; % perturb IKr, set to 1 for baseline
 %settings.Ca_scale = ; % perturb ICaL, set to 1 for baseline
 ICa_scales = { [1,14.4,27.7,27.8]
-    [1,1.3,1.5,1.6]}; %calcium perturbation for each model based on order of modelnames
+    [1,1.3,1.5,1.6]
+    [1 8 15.1 15.2]}; %calcium perturbation for each model based on order of modelnames
 
-%% Run Simulation
+%---- Run Simulation ----%
+%% Plot Figure 4A & 4B
 for i = 1:length(modelnames) 
     settings.model_name = modelnames{i};
     settings.celltype = celltypes{i};
@@ -48,11 +62,11 @@ for i = 1:length(modelnames)
     settings.nBeats = nBeats(i);
     X = main_program(settings);     
     
-    figure
+    figure % Figure 4A - APs 
     colors = hsv(length(ICa_scales{i}));
     ca_scale = ICa_scales{i};
     
-    for ii = 1:length(ca_scale)
+    for ii = 1:length(ca_scale) % Figure 4B - ICaL levels at baseline & before EAD
         subplot(1,2,1)
         plot(X.times{ii},X.V{ii},'color',colors(ii,:),'linewidth',2);
         hold on
@@ -78,12 +92,13 @@ for i = 1:length(modelnames)
     X1.(modelnames{i}) = X;  
 end 
 
-ICaL= [X1.Grandi.Area_Ca(1) X1.TT04.Area_Ca(1);
-X1.Grandi.Area_Ca(3) X1.TT04.Area_Ca(3)]';
+ICaL= [X1.Grandi.Area_Ca(1) X1.TT04.Area_Ca(1) X1.Ohara.Area_Ca(1);
+X1.Grandi.Area_Ca(3) X1.TT04.Area_Ca(3) X1.Ohara.Area_Ca(3)]';
 
+%% Plot Figure 4C
 figure
 handle = gcf;
 ax = axes('parent', handle);
 bar(abs(ICaL),'stacked')
-set(ax, 'xticklabel',({'Grandi','TT04'}))
+set(ax, 'xticklabel',({'Grandi','TT04','Ohara'}))
 legend('baseline ICaL','ICaL below threshold')

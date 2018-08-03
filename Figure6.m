@@ -1,9 +1,23 @@
 %% Figure 6:AP clamp simulations illustrate changes in K+ currents with 
 %% alterations in AP shape. 
-%--- Note: 
-% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
-% Intel Processor. For exact replication of figures it is best to use these settings.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------------------------------------------------------------------
+%% Figure 6
 %--- Description of Figure: 
 % AP Clamp simulations performed in the O'Hara model
 
@@ -11,8 +25,10 @@
 % main_program.m - runs single AP simulation 
 % main_APClamp.m - runs the AP clamp simulation using parfor loop 
 % plotting_APClamp.m - plots the waveforms from the main_APClamp.m function 
-
-%% Run under baseline conditions to get input voltage and time for AP Clamp
+%--------------------------------------------------------------------------
+%%
+%----  Run under baseline conditions to get input voltage and time for AP
+% Clamp ----%
 settings.model_name = 'Ohara';
 settings.celltype = 'endo';
 
@@ -24,9 +40,7 @@ settings.nBeats = 1 ; % Number of beats to simulate
 settings.numbertokeep = 1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
 settings.steady_state = 1;
 
-% Ks and Kr scaling must have the same length vector. Mainly change
-% Ks_scale and Kr_scale when you want to test what different ratios of the
-% two look like
+% Ks and Kr scaling must have the same length vector. 
 settings.Ks_scale = 1; % perturb IKs, set to 1 for baseline
 settings.Kr_scale = 1; % perturb IKr, set to 1 for baseline
 settings.Ca_scale =1; % perturb ICaL, set to 1 for baseline
@@ -35,7 +49,7 @@ base_datatable= main_program(settings);
 statevars_input = base_datatable.states{1,1}; % used as input for the AP clamp 
 t_input = base_datatable.times{1,1}; % used as input for the AP clamp 
 
-%% Figure 6A & 6B - Run AP Clamp for multiple APDs - Linear Scale
+%---- Run AP Clamp on a linear scale ----%
 apclamp_settings.model_name = 'Ohara';
 apclamp_settings.celltype = 'endo';
 [~,Vind] = ICs(apclamp_settings.model_name,1,1000);
@@ -52,9 +66,11 @@ apclamp_settings.vals_graph = [0.5,1,1.5,2,2.5];
 APClamp_data = main_APClamp(apclamp_settings); % run simulation 
 indxs = find(ismember(roundx(apclamp_settings.repol_change,2),roundx(apclamp_settings.vals_graph,2)));
 data_to_graph = APClamp_data(:,indxs);
+
+%% Plot Figure 6A & 6B
 plotting_APClamp(apclamp_settings,data_to_graph) % plot results 
 
-%% Figure 6C - Run AP Clamp for multiple APDs - Log Scale
+%---- Run AP Clamp on a log scale ----%
 apclamp_settings.model_name = 'Ohara';
 apclamp_settings.celltype = 'endo';
 [~,Vind] = ICs(apclamp_settings.model_name,1,1000);
@@ -70,6 +86,7 @@ apclamp_settings.PCL = 1000;
 
 log_APClamp_data = main_APClamp(apclamp_settings);
 
+%% Plot Figure 6C 
 BL = find(roundx(apclamp_settings.repol_change,2) ==1.00);
 AKr = cell2mat(arrayfun(@(x) x.Area_Kr(1), log_APClamp_data,'UniformOutput', 0));
 AKs = cell2mat(arrayfun(@(x) x.Area_Ks(1), log_APClamp_data,'UniformOutput', 0));

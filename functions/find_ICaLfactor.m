@@ -2,7 +2,7 @@ function final_factor = find_ICaLfactor(ICaL_Factor,settings,flags,sims)
 
 total = [];
 n = 0.1;
-settings.ISO = flags.ISO;
+%settings.ISO = flags.ISO;
 while isempty(total)
     settings.ICaLB = ICaL_Factor;
     [currents,State,Ti,APD]=mainHRdBA(settings,flags);

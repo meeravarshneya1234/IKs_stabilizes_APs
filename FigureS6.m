@@ -1,102 +1,122 @@
-modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT04','TT06','Grandi'};
+%% Figure S6:Susceptibility to EADs across multiple species.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------------------------------------------------------------------
+%% Figure S6
+%--- Description of Figures: 
+% Calcium perturbations and calculated ICaL for all models. 
+
+%--- Functions used in this script:
+% main_program.m - runs simulation 
+% mtit - create main title (from MATLAB file exchange) 
+%--------------------------------------------------------------------------
+%%
+%---- Set Up Simulation ----%
+modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT04','TT06','Ohara','Grandi'};
+% options - 'Fox', 'Hund', 'Livshitz','Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+
 celltypes = {'','','','','','endo','endo','endo','endo'}; % size should be same as model_name, enter one for each model
-amps = [36.4,32.2,35,35,30.9,25,22.6,32.2,20.6 ]; % Stimulus amplitude 
-n = [11 11 11 11 11 10 10 10]; % number of APD factors to plot because TT04 and TT06 cannot be increased by 3
+%celltypes = {''}; % size should be same as model_name, enter one for each model
+% options only available for human models as follows
+% TT04, TT06, Ohara - 'epi', 'endo', 'mid'
+% Grandi - 'epi', 'endo'
 
-% graph the log scaled IKs vs IKr 
-figure 
-fig1 = gcf;
-% graph the levels of IKs vs IKr at the last scaling 
-figure 
-fig2 = gcf;
+settings.PCL =1000 ;  % Interval bewteen stimuli,[ms]
+settings.stim_delay = 100 ; % Time the first stimulus, [ms]
+settings.stim_dur = 2 ; % Stimulus duration
+amps = [36.4,32.2,35,35,30.9,25,22.6,32.2,20.6]; %Stimulus amplitude for each model, same order as model names
+nBeats = [100 99 91 93 92 91 91 91 91]; %number of beats to stimulate first EAD , see Figure S5 for details
+settings.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
+settings.steady_state = 1;% 1 - run steady state conditions 0 - do not run steady state conditions 
 
-for index = 1:length(modelnames)
-    %% Step 1 - Run under baseline conditions to get input voltage and time for AP Clamp    
-    settings.model_name = modelnames{index};
-    settings.celltype = celltypes{index};
-    
-    settings.PCL = 1000 ;  % Interval bewteen stimuli,[ms]
-    settings.stim_delay = 100 ; % Time the first stimulus, [ms]
-    settings.stim_dur = 2 ; % Stimulus duration
-    settings.stim_amp = amps(index); % Stimulus amplitude
-    settings.nBeats = 1 ; % Number of beats to simulate
-    settings.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
-    settings.steady_state = 1;
-    
-    % Ks, Kr scaling must have the same length vector. Mainly change
-    % Ks_scale and Kr_scale when you want to test what different ratios of the
-    % two look like
-    settings.Ks_scale = 1; % perturb IKs, set to 1 for baseline
-    settings.Kr_scale = 1; % perturb IKr, set to 1 for baseline
-    settings.Ca_scale =1; % perturb ICaL, set to 1 for baseline
-    
-    datatable= main_program(settings);
-    statevars_input = datatable.states{1,1};
-    t_input = datatable.times{1,1};
+% Ks and Kr scaling must have the same length vector.
+settings.Ks_scale = 1; % perturb IKs, set to 1 for baseline
+settings.Kr_scale = 1; % perturb IKr, set to 1 for baseline
+ICa_scales = {[1 20 38.9 39] %calcium perturbation for each model based on order of modelnames
+    [1,34.4,67.7,67.8]
+    [1,2,2.9,3]
+    [1,29.6,58,58.1]
+    [1,2,2.9,3]
+    [1,14.4,27.7,27.8]
+    [1,11.7,22.3,22.4]
+    [1,8.1,15.1,15.2]
+    [1,1.3,1.5,1.6]};
 
-    %% Run AP Clamp for multiple APDs - Log Scale
-    apclamp_settings.model_name = modelnames{index};
-    apclamp_settings.celltype = celltypes{index};     
-    [~,Vind] = ICs(apclamp_settings.model_name,1,1000);
-    statevar_i_original = statevars_input(1:end ~= Vind); % all state variables besides V
-    apclamp_settings.statevar_i_original = cellfun(@(v) v(end), statevar_i_original);
-    apclamp_settings.volts = statevars_input{1,Vind};
-    apclamp_settings.times = t_input;
-    logscalefactors = linspace(log(1/3),log(3),11) ;
-    apclamp_settings.repol_change =  exp(logscalefactors(1:n(index))); % scaling
-    apclamp_settings.numberofAPs = 100;
-    apclamp_settings.numberkeep = 1;
-    apclamp_settings.PCL = 1000;
+%---- Run Simulation ----%
+for i = 1:length(modelnames) 
+    settings.model_name = modelnames{i};
+    settings.celltype = celltypes{i};
+    settings.stim_amp = amps(i);
+    settings.Ca_scale = ICa_scales{i};
+    settings.nBeats = nBeats(i);
+    X = main_program(settings);     
     
-    log_APClamp_data = main_APClamp(apclamp_settings);
+    figure  
+    colors = hsv(length(ICa_scales{i}));
+    ca_scale = ICa_scales{i};
     
-    BL = find(round(apclamp_settings.repol_change,2) ==1.00);
-    AKr = cell2mat(arrayfun(@(x) x.Area_Kr(1), log_APClamp_data,'UniformOutput', 0));
-    AKs = cell2mat(arrayfun(@(x) x.Area_Ks(1), log_APClamp_data,'UniformOutput', 0));
+    for ii = 1:length(ca_scale) 
+        subplot(1,2,1)
+        plot(X.times{ii},X.V{ii},'color',colors(ii,:),'linewidth',2);
+        hold on
+        xlabel('time (ms)')
+        ylabel('V (mv)')
+        set(gcf,'Position',[20,20,600,300])
+        ylim([-100 100])
+        
+        if ii == 1 || ii == 3
+            subplot(1,2,2)
+            plot(X.times{ii},X.ICaL{ii},'color',colors(ii,:),'linewidth',2);
+            hold on
+            xlabel('time (ms)')
+            ylabel('ICaL (A/F)')
+            set(gcf,'Position',[20,20,600,300])
+        end
+        
+    end
     
-    figure(fig1)
-    subplot(3,3,index+1)
-    loglog(apclamp_settings.repol_change(1:n(index)),AKr(1:n(index))/AKr(BL),'k-x', 'linewidth',2)
-    hold on
-    loglog(apclamp_settings.repol_change(1:n(index)),AKs(1:n(index))/AKs(BL),'k-o','linewidth',2)
-    %xlabel('APD Factor')
-    %ylabel('norm AUC')
-    %legend('IKr','IKs')
-    set(gca,'FontSize',12,'FontWeight','bold')
-    title(modelnames{index})
-    xlim([0,3])
-    ylim([0.001 100])
+    mtit(modelnames{i} ,...
+        'fontsize',14);
     
-    
-    figure(fig2)
-    subplot(3,3,index+1)
-    bar([AKr(n(index))/AKr(BL),AKs(n(index))/AKs(BL)],0.5)
-    %ylabel('norm current (A/F)')
-    set(gca,'XTickLabels',{'IKr','IKs'})
-    title(modelnames{index})
-    %ylim([0 20])
-       
-end
+    X1.(modelnames{i}) = X;  
 
-Heijman_APClamp = FigureS6Heijman();
-Heijman_APClamp = reformat_data(Heijman_APClamp,11);
+end 
 
-logscalefactors = linspace(log(1/3),log(3),11) ;
-apclamp_settings.repol_change =  exp(logscalefactors(1:11)); % scaling
+X1.Heijman = FigureS6Heijman();
 
-BL = find(round(apclamp_settings.repol_change,2) == 1.00);
-AKr = cell2mat(Heijman_APClamp.Area_Kr);
-AKs = cell2mat(Heijman_APClamp.Area_Ks);
+models = {'Fox','Hund','Heijman','Livshitz','Devenyi','Shannon','TT04','TT06','Ohara','Grandi'};
+figure % plot Baseline AUC of ICaL for all models 
+summaryBL_barplot = gcf;
+axBL_summary = axes('parent', summaryBL_barplot);
+ICaL_Baseline = abs(cell2mat(cellfun(@(x) X1.(x).Area_Ca(1),models,'UniformOutput',0)));
+bar(ICaL_Baseline,0.5)
+set(axBL_summary, 'xticklabel',models)
+ylabel('Baseline ICaL')
+xtickangle(90)
+set(gca,'FontSize',12,'FontWeight','bold')
 
-figure(fig1)
-subplot(3,3,1)
-loglog(apclamp_settings.repol_change,AKr/AKr(BL),'k-x', 'linewidth',2)
-hold on
-loglog(apclamp_settings.repol_change,AKs/AKs(BL),'k-o','linewidth',2)
-title('Heijman')
+figure % plot Before First EAD AUC of ICaL for all models 
+summary_barplot = gcf;
+ax_summary = axes('parent', summary_barplot);
+ICaL_Before_EAD = abs(cell2mat(cellfun(@(x) X1.(x).Area_Ca(3),models,'UniformOutput',0)));
+bar(ICaL_Before_EAD,0.5)
+set(ax_summary, 'xticklabel',models)
+ylabel('ICaL Before EAD')
+xtickangle(90)
+set(gca,'FontSize',12,'FontWeight','bold')
 
-figure(fig2)
-subplot(3,3,1)
-bar([AKr(end)/AKr(BL),AKs(end)/AKs(BL)],0.5)
-set(gca,'XTickLabels',{'IKr','IKs'})
-title('Heijman')
+

@@ -1,5 +1,31 @@
 function X_Heijman = FigureS3Heijman()
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+                            %% -- FigureS3Heijman.m -- %%
+% Description: Runs the Heijman model simulation. 
+
+% Outputs:
+% --> X_Heijman - outputs the APDs, time, voltage, and state variables 
+
+%---: Functions required to run this script :---%
+% mainHRdBA.m - runs Heijman model simulation (downloaded code online)
+%--------------------------------------------------------------------------
+%% 
+%---- Set up settings ----%
 settings.PCL = 1000;
 settings.freq =1;
 settings.storeLast = 2; % save both beats 99 and 100
@@ -7,19 +33,12 @@ settings.stimdur = 2;
 settings.Istim = -36.7;
 settings.showProgress = 1;
 
-%colors = repmat('krgbmc',1,1000);
 iso_concs = 0;
 settings.SS = 1;
 
-%
-flags.ICaL = 1;
-flags.IKs = 1;
-flags.PLB = 1;
-flags.TnI = 1;
-flags.INa = 1;
-flags.INaK = 1;
-flags.RyR = 1;
-flags.IKur = 1;
+% blocking PKA targets - 1 = no block; 0 = block 
+flags.ICaL = 1; flags.IKs = 1; flags.PLB = 1; flags.TnI = 1; flags.INa = 1;
+flags.INaK = 1; flags.RyR = 1; flags.IKur = 1;
 
 for ii = 1:length(iso_concs)
     settings.ISO = iso_concs(ii);

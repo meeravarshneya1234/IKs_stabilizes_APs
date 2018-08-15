@@ -1,29 +1,45 @@
 %% Figure S4: Population Variability across multiple species.
-%--- Note: 
-% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
-% Intel Processor. For exact replication of figures it is best to use these settings.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------------------------------------------------------------------
 %--- Description of Figure: 
 % Build heterogenous populations of APs in multiple species models by 
 % imposeing random variation in parameters controlling ionic current levels. 
 
-%--- Functions used in this script ---%
-% --* pop_program.m - runs population simulation using parfor loop
-% --* reformat_data.m - reformats data collected during parallel loop into
+%---: Functions required to run this part :---%
+% pop_program.m - runs population simulation using parfor loop
+% reformat_data.m - reformats data collected during parallel loop into
 % easier format
-% --* clean_pop.m - inspects for AP population for EADs and returns population with no EADs 
-%% Set Up Simulation Protocol 
-modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT06','Ohara'};
-% options - 'Fox', 'Hund', 'Livshitz',
-% 'Devenyi','Shannon','TT04','TT06','Grandi','Ohara'
+% clean_pop.m - inspects for AP population for EADs and returns population with no EADs 
+%--------------------------------------------------------------------------
+%% 
+%---- Set Up Simulation Protocol ----%
+modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT06'};
 
-celltypes = {'','','','','','endo','endo','endo','endo'}; % size should be same as model_name, enter one for each model
-% options only available for human models - 'epi', 'endo', 'mid'
+celltypes = {'','','','','','endo','endo','endo'}; % size should be same as modelnames, enter one for each model
+% options only available for human models as follows:
+% TT04, TT06, Ohara -> 'epi', 'endo', or 'mid' 
+% Grandi -> 'epi' or 'endo' 
+% remaining models -> ''
 
 settings.PCL =1000 ;  % Interval bewteen stimuli,[ms]
 settings.stim_delay = 100 ; % Time the first stimulus, [ms]
 settings.stim_dur = 2 ; % Stimulus duration
-amps = [36.4,32.2,35,35,30.9,22.6,32.2]; % Stimulus amplitude for each model, same order as model names
+amps = [36.4,32.2,35,35,30.9,22.6]; % Stimulus amplitude for each model, same order as model names (See Table S1)
 settings.nBeats = 100 ; % Number of beats to simulate 
 settings.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats
 settings.steady_state = 1;% Run models using the steady state initial conditions 
@@ -40,7 +56,7 @@ settings.sigma = 0.2; % standard deviation assigned for population
 
 % settings for clean_pop.m function 
 settings.totalvars = settings.variations;
-t_cutoffs = [5 7 5 5 5 5 5]; % time between EAD cutoff, order based on order for modelnames
+t_cutoffs = [5 7 5 5 5 5]; % time between EAD cutoff, order based on order for modelnames
 settings.flag = 0; % set to 1 only if the model has notch like Heijman 
 
 %% Run Simulation 
@@ -56,14 +72,15 @@ for i = 1:length(modelnames)
     Xnew = clean_pop(settings,X);
        
     % histogram calculations
-    normAPDs = Xnew.APDs - median(Xnew.APDs);
+    APDs = cell2mat(Xnew.APDs);
+    normAPDs = APDs - median(APDs);
     temp = min(normAPDs):25:max(normAPDs);
     bins = linspace(min(normAPDs),max(normAPDs),length(temp));
-    medians(i) = median(Xnew.APDs);
+    medians(i) = median(APDs);
     
-    pert1 = prctile(Xnew.APDs,90);
-    pert2 = prctile(Xnew.APDs,10);
-    Xnew.APDSpread =(pert1 - pert2)/ median(Xnew.APDs);
+    pert1 = prctile(APDs,90);
+    pert2 = prctile(APDs,10);
+    Xnew.APDSpread =(pert1 - pert2)/ median(APDs);
     
     figure
     histoutline(normAPDs,bins,'linewidth',4);
@@ -79,10 +96,9 @@ for i = 1:length(modelnames)
     Xnew = []; X =[];% reset for next model 
 end
 
-run FigureS2Heijman.m 
-X1.Heijman = X_Heijman; 
+X1.Heijman  = FigureS4Heijman();
 
-all_names = {'Fox','Hund','Heijman','Livshitz','Devenyi','Shannon','TT06','Ohara'};
+all_names = {'Fox','Hund','Heijman','Livshitz','Devenyi','Shannon','TT06'};
 figure 
 summary_barplot = gcf;
 ax_summary = axes('parent', summary_barplot);
@@ -92,4 +108,5 @@ set(ax_summary, 'xticklabel',all_names)
 ylabel('APD Spread')
 
 % Note in mauscript the APD Spread bar plot includes TT04 and Grandi APD 
-% Spreads which were taken from data collected in Figure3.m file. 
+% Spreads which were taken from data collected in Figure3.m file and Ohara
+% APD Spread taken from Figure1.m 

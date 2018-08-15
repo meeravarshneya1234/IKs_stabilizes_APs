@@ -51,7 +51,7 @@ else % EADs present
     title('Heijman Original')
     
     % plot APs with EADs in population
-    x = X.times(indexs,1); y = X.volts(indexs,1);
+    x = X.times(indexs,1); y = X.V(indexs,1);
     figure(fig)
     subplot(1,3,2)
     hold on

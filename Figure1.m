@@ -15,7 +15,6 @@
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %--------------------------------------------------------------------------
 %% Figure 1A & 1B
 %--- Description of Figure:
@@ -110,8 +109,8 @@ ylabel('IKs Fraction')
 
 % zoomed in on low iks model iks
 figure
-bar(X1.IKs_Fraction(1),0.5)
-ylim([0 0.01])
+bar(X1.IKs_Fraction(1))
+ylim([0 0.02])
 ylabel('low IKs Fraction zoomed in')
 
 %--------------------------------------------------------------------------
@@ -144,26 +143,42 @@ settings2.numbertokeep =1;% Determine how many beats to keep. 1 = last beat, 2 =
 settings2.steady_state = 1;% 1 - run steady state conditions 0 - do not run steady state conditions 
 
 % Ks, Kr, and Ca scaling must have the same length vector. 
-settings2.Ks_scale = [0.1 1 10]; % perturb IKs, set to 1 for baseline
-settings2.Kr_scale = [1.08 1 0.39]; % perturb IKr, set to 1 for baseline
+Ks_scale = [0.1 1 10]; % perturb IKs, set to 1 for baseline
+Kr_scale = [1.08 1 0.39]; % perturb IKr, set to 1 for baseline
 settings2.variations = 300;
 settings2.sigma = 0.2;
 
 %---- Run Simulation ----%
-X2 = pop_program(settings2);
+for i = 1:length(Ks_scale) % for each ratio of Iks:Ikr
+    settings2.Ks_scale = Ks_scale(i);
+    settings2.Kr_scale = Kr_scale(i);
+    
+    disp(['GKs = GKs*' num2str(Ks_scale(i)) '; GKr = GKr*' num2str(Kr_scale(i))])
+    
+    Xtemp = pop_program(settings2);    
+    F = fieldnames(Xtemp);
+    for ind = 1:settings2.variations
+        for iF = 1:length(F)
+            aF = F{iF};
+            X2.(aF){ind,i} = Xtemp(ind).(aF);
+        end
+    end
+ 
+end 
 
 %% Plot Figure 1C - Ohara High, Baseline, Low IKs histogram of populations
 figure
 pop1 = gcf;
 colors = 'bkr';
+orig_APDs = cell2mat(X2.APDs);
 for i = 1:3    
     % histogram calculations
-    APDs = X2.APDs(:,i);
+    APDs = orig_APDs(:,i);
     temp = min(APDs):25:max(APDs);
     bins = linspace(min(APDs),max(APDs),length(temp));
     
     figure(pop1)
-    histoutline(newAPDs,bins,'linewidth',4,'color',colors(i));
+    histoutline(APDs,bins,'linewidth',4,'color',colors(i));
     hold on
     set(gca,'FontSize',12,'FontWeight','bold')
     xlabel('APD (ms)','FontSize',12,'FontWeight','bold')
@@ -171,7 +186,7 @@ for i = 1:3
     
     pert1 = prctile(APDs,90);
     pert2 = prctile(APDs,10);
-    spreads(i) =(pert1 - pert2 )/ median(APDs);
+    spreads(i) =(pert1 - pert2)/ median(APDs);
 end
 
 %% Plot Figure 1D - Ohara High, Baseline, Low IKs APD Spreads
@@ -181,3 +196,11 @@ ax_summary = axes('parent', summary_barplot);
 bar(spreads,0.5)
 ylabel('APD Spread')
 xticklabels({'Low','Baseline','High'})
+
+for i = 1:3
+    figure % plot population: only first 20 of 300
+    for ii = 1:300
+        plot(X2.times{ii,i},X2.V{ii,i},'linewidth',2)
+        hold on
+    end
+end

@@ -50,7 +50,7 @@ settings.Istim = -36.7;
 settings.showProgress = 0;
 settings.SS = 1; % run steady state initial conditions 
 
-variations = 20;
+variations = 300;
 settings.sigma = 0.2;
 scalings = exp(settings.sigma*randn(length(fieldnames(c)),variations))' ;
 
@@ -147,7 +147,8 @@ spreads = cell2mat(cellfun(@(x) X.(x).APDSpread,sims,'UniformOutput',0));
 figure 
 bar(spreads(1:3),0.5)
 ylabel('APD Spread')
-xticklabels(sims{1:3})
+xticklabels(sims(1:3))
+title('Figure 7D')
 disp(['Final Population has: ' num2str(variations - length(indexs)) ' AP variants.'])
 
 %% Plot Figure S11
@@ -156,6 +157,7 @@ figure
 bar(spreads,0.5)
 ylabel('APD Spread')
 xticklabels(sims)
+title('Figure S11')
 
 %% Figure 7E 
 %--- Description of Figure: 
@@ -180,7 +182,7 @@ settings.SS = 1;
 
 flags.ICaL = 1; flags.IKs = 1; flags.PLB = 1; flags.TnI = 1; flags.INa = 1;
 flags.INaK = 1; flags.RyR = 1; flags.IKur = 1;
-starts = [1 1 1]; % if you want to change where to begin calcium perturbation
+starts = [1 36 12]; % if you want to change where to begin calcium perturbation
 
 sims = {'noISO','ISO','IKsBP'};
 IKsBP = [1 1 0];
@@ -189,8 +191,7 @@ for index = 1:length(sims)
     flags.IKs = IKsBP(index);
     settings.ISO = ISO(index);
     start = starts(index);
-    ICaL_Factors(index) = find_ICaLfactor(start,settings,flags);
-    disp(sims{index})
+    ICaL_Factors(index) = find_ICaLfactor(start,settings,flags,sims{index});
 end
 
 figure 
@@ -199,6 +200,7 @@ ax_summary = axes('parent', summary_barplot);
 bar(ICaL_Factors,0.5)
 ylabel('ICaL Factor')
 xticklabels(sims)
+title('Figure 7E')
 
 
 % EADs occur at a ICaL Factor of 2 on beat 91. -- no ISO 

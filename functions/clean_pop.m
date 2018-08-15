@@ -18,7 +18,7 @@ function Xnew = clean_pop(settings,X)
 % 5 with EADs,function reruns 5 APs so output returns population of 300) 
 
 %% Determine if the population has any EADs
-[APfails,nEADs] = cleandata(X.APDs(:,1),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag); 
+[APfails,nEADs] = cleandata(cell2mat(X.APDs(:,1)),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag); 
 [~,ind_failed] = find(APfails ==1); % number of failed to repolarize
 [~,ind_EADs] = find(nEADs==1); % number of EADs
 indexs = [ind_EADs ind_failed]; %total 

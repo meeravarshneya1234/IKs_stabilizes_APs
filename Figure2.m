@@ -13,7 +13,7 @@
 %--- Note:
 % Results displayed in manuscript were run using MATLAB 2016a on a 64bit
 % Intel Processor. For exact replication of figures it is best to use these
-% settings.
+% settings. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %--------------------------------------------------------------------------

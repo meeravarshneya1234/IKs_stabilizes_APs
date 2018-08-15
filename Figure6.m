@@ -64,7 +64,7 @@ apclamp_settings.PCL = 1000;
 apclamp_settings.vals_graph = [0.5,1,1.5,2,2.5];
 
 APClamp_data = main_APClamp(apclamp_settings); % run simulation 
-indxs = find(ismember(roundx(apclamp_settings.repol_change,2),roundx(apclamp_settings.vals_graph,2)));
+indxs = find(ismember(round(apclamp_settings.repol_change,2),round(apclamp_settings.vals_graph,2)));
 data_to_graph = APClamp_data(:,indxs);
 
 %% Plot Figure 6A & 6B
@@ -87,7 +87,7 @@ apclamp_settings.PCL = 1000;
 log_APClamp_data = main_APClamp(apclamp_settings);
 
 %% Plot Figure 6C 
-BL = find(roundx(apclamp_settings.repol_change,2) ==1.00);
+BL = find(round(apclamp_settings.repol_change,2) ==1.00);
 AKr = cell2mat(arrayfun(@(x) x.Area_Kr(1), log_APClamp_data,'UniformOutput', 0));
 AKs = cell2mat(arrayfun(@(x) x.Area_Ks(1), log_APClamp_data,'UniformOutput', 0));
 Volts = cell2mat(arrayfun(@(x) x.Voltage(:,1), log_APClamp_data,'UniformOutput', 0));
@@ -108,4 +108,3 @@ figure
 bar([AKr(end)/AKr(BL),AKs(end)/AKs(BL)],0.5)
 ylabel('norm current (A/F)')
 set(gca,'XTickLabels',{'IKr','IKs'})
-

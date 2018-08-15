@@ -75,7 +75,9 @@ for i = 1:length(modelnames)% for loop going through each model
     legend('IKs','IKr')
     set(gcf,'Position',[20,20,600,300])
     
-    mtit(modelnames{i},...
+    title_var = strjoin({'Figure 3A', modelnames{i}});
+    
+    mtit(title_var,...
         'fontsize',14);
     
     str = modelnames{i};
@@ -83,12 +85,14 @@ for i = 1:length(modelnames)% for loop going through each model
 end
 
 %% Figure 3B - IKs Fractions 
+figure
 barplot = gcf;
 ax_summary = axes('parent', barplot);
 IKs_Fractions = [X1.Grandi.IKs_Fraction X1.TT04.IKs_Fraction];
 bar(IKs_Fractions,0.5)
 set(ax_summary, 'xticklabel',{'Grandi','TT04'})
 ylabel('IKs Fraction')
+title('Figure 3B')
 xtickangle(90)
 
 %--------------------------------------------------------------------------
@@ -141,7 +145,9 @@ for i = 1:length(modelnames)
     settings2.model_name = modelnames{i};
     settings2.celltype = celltypes{i};
     settings2.stim_amp = amps(i);
-    X = pop_program(settings2);
+    Xtemp = pop_program(settings2);
+    X = reformat_data(Xtemp,settings2.variations);
+    %X.APDs = cell2mat(X.APDs);
     
     Xnew = clean_pop(settings2,X);
     
@@ -150,13 +156,14 @@ for i = 1:length(modelnames)
         plot(Xnew.times{ii},Xnew.V{ii},'linewidth',2)
         hold on
     end
-    title(modelnames{i})
+    title_var = strjoin({'Figure 3C', modelnames{i}});
+    title(title_var)
     xlabel('time (ms)')
     ylabel('voltage (mV)')
     ylim([-100 60])
     
     % histogram calculations
-    APDs = Xnew.APDs;
+    APDs = cell2mat(Xnew.APDs);
     temp = min(APDs):25:max(APDs);
     bins = linspace(min(APDs),max(APDs),length(temp));
     
@@ -175,3 +182,4 @@ ylabel('Count','FontSize',12,'FontWeight','bold')
 hold off
 box('off')
 legend(modelnames)
+title('Figure 3D')

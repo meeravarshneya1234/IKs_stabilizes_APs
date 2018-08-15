@@ -13,7 +13,7 @@ while EADs > 0
     X.APDs(n:settings.totalvars,1)=clean_datatable.APDs;
     X.scalings(n:settings.totalvars,:) = clean_datatable.scaling;
     
-    [APfails,nEADs] = cleandata(X.APDs(:,1),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag);
+    [APfails,nEADs] = cleandata(cell2mat(X.APDs(:,1)),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag);
     [number_of_failed,~] = find(APfails ==1); % number of failed to repolarize
     [number_of_EADs,~] = find(nEADs==1); % number of EADs
     

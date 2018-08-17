@@ -1,5 +1,37 @@
 function datatable= main_APClamp(data)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                    %% -- main_APClamp.m -- %%
+% Description: Runs the "AP Clamp simulation" for the specified model.
+
+% Inputs:
+% --> data - [struct array] AP stimulation protocol (PCL,nBeats,...)
+
+% Outputs:
+% --> datatable - [struct array] AP info including: APD, time matrix and
+% state variables, AUC of ICaL,IKs,IKr waveforms, ICaL,IKs,IKr currents,
+% IKs Fraction.
+
+%---: Functions used in this script :---%
+% ** parameters.m - Extracts the model parameters for the model called. 
+% ** ICs.m - Extracts the initial conditions for the model called. 
+% ** dydt functions - one for each model, calculates state variables.
+% ** find_APD.m - calculates APD for single AP 
+%--------------------------------------------------------------------------
 %%
 [p,c] = parameters(data.model_name,data.celltype);
 start_point = find(data.volts>-75,1);
@@ -11,8 +43,6 @@ end_point = find( data.times>data.times(ind_V) & data.volts<-75,1);
 odefcn = str2func(strcat('dydt_',char(data.model_name),'APclamp'));
 
 % code to include a parfor loop 
-tic 
-
 parfor ind = 1:length(data.repol_change)
     
     statevar_i_original = data.statevar_i_original;
@@ -104,5 +134,3 @@ parfor ind = 1:length(data.repol_change)
     
     disp(['APD ' num2str(data.repol_change(ind))])
 end
-toc
-

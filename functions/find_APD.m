@@ -15,18 +15,19 @@ function [APD,repoldex,tinit] = find_APD(time, Voltage)
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
-
                             %% -- find_APD.m -- %%
-% Description: Calculates a single AP's APD. Determined as the interval 
-% between the stimulus and when the membrane potential return to below -75 mV.
+% Description: Calculates a single AP's APD. Determined as the interval
+% between the stimulus and when the membrane potential return to below -75
+% mV.
 
 % Inputs:
 % --> time - [array] single AP time vector in ms 
 % --> Voltage - [array] single AP voltage vector in mV
 
 % Outputs:
-% --> APD - [double] 
-% --> repoldex  - [double] index when voltage returns to -75 mV (used in AP clamp code) 
+% --> APD - [double] action potential duration 
+% --> repoldex  - [double] index when voltage returns to -75 mV (used in AP
+% clamp code)
 % --> tinit -  [double] time at beginning of action potential (used in AP
 % clamp code)
 %--------------------------------------------------------------------------
@@ -49,6 +50,4 @@ if isempty(repoldex)
 else
     repoltime = time(repoldex(1)) ;
     APD = round((repoltime - tinit)) ;
-end
-
 end

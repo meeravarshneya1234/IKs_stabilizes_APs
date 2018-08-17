@@ -13,7 +13,7 @@ function X_Heijman = FigureS4Heijman()
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%--------------------------------------------------------------------------
                             %% -- FigureS4Heijman.m -- %%
 % Description: Runs the Heijman model population simulation. 
 
@@ -25,10 +25,7 @@ function X_Heijman = FigureS4Heijman()
 % clean_pop_Heijman.m - 
 % reformat_data.m - 
 %--------------------------------------------------------------------------
-c.ICaLB = 1; c.IKsB = 1; c.IKrB = 1; c.INaKB =1; c.INaCaB = 1; c.IKpB = 1;
-c.IK1B = 1; c.INabB = 1; c.ITo1B = 1; c.ITo2B = 1; c.INaB = 1; c.INaLB = 1;
-c.IClB = 1; c.IpCaB = 1; c.ICabB = 1; c.IrelB = 1; c.IupB = 1; c.IleakB = 1;
-
+%%
 % settings
 settings.bcl = 1000;
 settings.freq =100;
@@ -36,6 +33,11 @@ settings.storeLast = 1;
 settings.stimdur = 2;
 settings.Istim = -36.7;
 settings.showProgress = 1;
+
+% parameters to vary to create population, set to 1 for default
+c.ICaLB = 1; c.IKsB = 1; c.IKrB = 1; c.INaKB =1; c.INaCaB = 1; c.IKpB = 1;
+c.IK1B = 1; c.INabB = 1; c.ITo1B = 1; c.ITo2B = 1; c.INaB = 1; c.INaLB = 1;
+c.IClB = 1; c.IpCaB = 1; c.ICabB = 1; c.IrelB = 1; c.IupB = 1; c.IleakB = 1;
 
 variations = 300;
 settings.sigma = 0.2;

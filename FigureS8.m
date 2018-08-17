@@ -14,6 +14,7 @@
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %--------------------------------------------------------------------------
 %% Figure S8A
 %--- Description of Figure:
@@ -28,6 +29,7 @@
 % inject_current_program.m - runs injection simulation using parfor loop
 % reformat_data.m - reformats the data collected from inject_current_program
 %--------------------------------------------------------------------------
+%%
 modelnames = {'Fox','Hund','Heijman','Shannon','Livshitz','Devenyi','TT04','TT06','Ohara','Grandi'};
 load('data.mat')
 IKs_Fraction = cell2mat(cellfun(@(x) datatable.(x).IKs_Fraction,modelnames,'UniformOutput',0));

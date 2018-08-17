@@ -22,14 +22,15 @@ function [datatable] = inject_current_program(settings)
 % --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)
 
 % Outputs:
-% --> datatable - [struct array] AP info including: APD, time matrix
-% and state variables, AUC of ICaL,IKs,IKr waveforms, ICaL,IKs,IKr currents, 
-% IKs Fraction. 
+% --> datatable - [struct array] AP info including: APD, time matrix and
+% state variables, AUC of ICaL,IKs,IKr waveforms, ICaL,IKs,IKr currents,
+% IKs Fraction.
 
 %---: Functions used in this script :---%
 % ** parameters.m - Extracts the model parameters for the model called. 
 % ** ICs.m - Extracts the initial conditions for the model called. 
 % ** dydt functions - one for each model, calculates state variables.
+% ** find_APD.m - calculates APD for single AP 
 %--------------------------------------------------------------------------
 
 %% 1--- Load Model Parameters 

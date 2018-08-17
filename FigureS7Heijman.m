@@ -16,7 +16,7 @@ function datatable = FigureS7Heijman
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%--------------------------------------------------------------------------
                             %% -- FigureS7Heijman.m -- %%
 % Description: Injecting a constant inward current while voltage is greater than -60 mV
 % to induce proarrhythmic behavior in each of the models. 
@@ -27,7 +27,7 @@ function datatable = FigureS7Heijman
 %---: Functions required to run this script :---%
 % mainHRdBA_Inject.m - runs injection simulation for Heijman only 
 %--------------------------------------------------------------------------
-
+%%
 % settings
 settings.PCL = 1000;% Interval bewteen stimuli,[ms]
 settings.freq = 100; %number of beats to stimulate first EAD 

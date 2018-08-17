@@ -21,7 +21,7 @@
 %--- Description of Figures: 
 % Calcium perturbations and calculated ICaL for Grandi, Ohara, TT04
 
-%--- Functions used in this script:
+%---: Functions required to run this script :---%
 % main_program.m - runs simulation 
 % mtit - create main title (from MATLAB file exchange) 
 %--------------------------------------------------------------------------

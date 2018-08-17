@@ -35,7 +35,6 @@ function deriv = dydt_Devenyi(t,statevar,Id,p,c)
 %%
 
 statevarcell = num2cell(statevar) ;
-
 [V,Cai,CaNSR,CaJSR,Nai,Ki,m,h,j,d,f,b,g,xKr,xs1,xs2,Jrel]  = deal(statevarcell{:}) ;
 
 % Reversal potentials

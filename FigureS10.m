@@ -14,6 +14,7 @@
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %--------------------------------------------------------------------------
 %% Figure S10
 %--- Description of Figure:

@@ -1,4 +1,38 @@
 function deriv = dydt_HundAPclamp(t,statevar,V,p,c)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                            %% -- dydt_HundAPclamp.m --%%
+% Description: Runs the "AP Clamp Simulation for the Hund Model based on
+% the following article --:
+        % Hund TJ and Rudy Y. Rate dependence and regulation of action
+        % potential and calcium transient in a canine cardiac ventricular
+        % cell model. Circulation. 2004;110:3168-74.
+
+% Inputs:
+% --> t - [array] time interval 
+% --> statevar - [array] state variable initial conditions
+% --> V - [array] voltage input used to perform AP clamp
+% --> p - [struct array] main model parameters
+% --> c - [struct array] model parameters to be varied if population run
+
+% Outputs:
+% --> deriv - [array] state variables 
+%--------------------------------------------------------------------------
+%%
 Id = 0;
 statevarcell = num2cell(statevar) ;
 

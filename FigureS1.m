@@ -15,6 +15,7 @@
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %--------------------------------------------------------------------------
 %% Figure S1A, S1B, S1C
 %--- Description of Figure:
@@ -23,7 +24,7 @@
 %---: Functions required to run this part :---%
 % main_program.m - runs single AP simulation
 %--------------------------------------------------------------------------
-
+%%
 %---- Set Up Low IKs Simulation ----%
 settings1.model_name = 'TT04';
 settings1.celltype = 'endo';

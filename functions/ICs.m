@@ -26,11 +26,10 @@ function [ic,Vind] = ICs(model_name,steady_state,pcl)
 % Methods and Table S1. 
 
 % Inputs:
-% --> model_name - [string] name of model for which the parameters are needed.
-% options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
-% 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
-% --> steady_state - [binary] 1 (steady state conditions); 0 (non-steady state
-% conditions) 
+% --> model_name - [string] name of model for which the parameters are
+% needed.
+% --> steady_state - [binary] 1 (steady state conditions); 0 (non-steady
+% state conditions)
 % --> pcl - [binary] the pacing length for the simulation to be run. 
 
 % Outputs:
@@ -38,8 +37,8 @@ function [ic,Vind] = ICs(model_name,steady_state,pcl)
 % --> Vind - [double] index of Voltage in the matrix of initial conditions
 
 %---: Functions used in this script :---%
-% ** initial_conditions.m - Extracts the initial conditions from the paper if 
-% steady_state = 0 or if PCL is not 500,1000,5000.
+% ** initial_conditions.m - Extracts the initial conditions from the paper
+% if steady_state = 0 or if PCL is not 500,1000,5000.
 % -------------------------------------------------------------------------
 %% 
 

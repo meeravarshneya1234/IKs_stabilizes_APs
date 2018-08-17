@@ -1,11 +1,43 @@
 function deriv = dydt_DevenyiAPclamp(t,statevar,V,p,c)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                            %% -- dydt_DevenyiAPclamp.m --%%
+% Description: Runs the "AP Clamp Simulation for the Devenyi Model based on
+% the following article --:
+    % Devenyi RA, Ortega FA, Groenendaal W, Krogh-Madsen T, Christini DJ
+    % and Sobie EA. Differential roles of two delayed rectifier potassium
+    % currents in regulation of ventricular action potential duration and
+    % arrhythmia susceptibility. J Physiol. 2017;595:2301-2317.
+
+% Inputs:
+% --> t - [array] time interval 
+% --> statevar - [array] state variable initial conditions
+% --> V - [array] voltage used to apply ap clamp
+% --> p - [struct array] main model parameters
+% --> c - [struct array] model parameters to be varied if population run
+
+% Outputs:
+% --> deriv - [array] state variables 
+%--------------------------------------------------------------------------
+%%
+
 Id =0;
 statevarcell = num2cell(statevar) ;
-
 [Cai,CaNSR,CaJSR,Nai,Ki,m,h,j,d,f,b,g,xKr,xs1,xs2,Jrel]  = deal(statevarcell{:}) ;
-
-
-%% Simulated real cell (the one with varied parameters)
 
 % Reversal potentials
 ENa = p.RTF*log(p.Nao/Nai) ;

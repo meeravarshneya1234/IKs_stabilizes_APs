@@ -14,7 +14,7 @@ function datatable = FigureS10Heijman()
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%--------------------------------------------------------------------------
                             %% -- FigureS10Heijman.m -- %%
 % Description: Run AP Clamp in Heijman model 
 

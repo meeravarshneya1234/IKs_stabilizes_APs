@@ -15,9 +15,8 @@ function plotting_APClamp(settings,datatable)
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
-
                        %% -- plotting_APClamp.m -- %%
-% Description: Plot figures for Figure6.m 
+% Description: Plot figures for Figure6.m O'Hara model AP clamp simualtions
 
 % Inputs:
 % --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)

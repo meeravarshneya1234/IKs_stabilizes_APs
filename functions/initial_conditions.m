@@ -1,4 +1,5 @@
 function ic = initial_conditions(model_name)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--- "Slow delayed rectifier current protects ventricular myocytes from
 % arrhythmic dynamics across multiple species: a computational study" ---%
@@ -19,8 +20,6 @@ function ic = initial_conditions(model_name)
 
 % Inputs:
 % --> model_name - [string] name of model for which the parameters are needed.
-% options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
-% 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
 
 % Outputs:
 % --> ic - [struct array] with initial conditions

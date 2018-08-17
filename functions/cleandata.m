@@ -15,9 +15,9 @@ function [APfails,EADs] = cleandata(APDs,times,volts,t_cutoff,flag)
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
-
                             %% -- cleandata.m --%%
-% Description: Finds index of APs with EADs or fail to repolarize. 
+% Description: Takes in "i" number of APs and determines the index of ones
+% with EADs or fail to repolarize.
 
 % Inputs:
 % --> APDs - [array] population's APDs 

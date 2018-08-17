@@ -13,7 +13,7 @@ function X_Heijman = FigureS6Heijman()
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%--------------------------------------------------------------------------
                             %% -- FigureS6Heijman.m -- %%
 % Description: Runs the Heijman model calcium perturbation simulation. 
 

@@ -14,7 +14,7 @@ function X_Heijman = FigureS3Heijman()
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%--------------------------------------------------------------------------
                             %% -- FigureS3Heijman.m -- %%
 % Description: Runs the Heijman model simulation. 
 

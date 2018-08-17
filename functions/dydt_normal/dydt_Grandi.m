@@ -34,7 +34,6 @@ function deriv = dydt_Grandi(t,y,Id,p,c)
 %%
 
 ydot = zeros(size(y));                                    
-
 V = y(39);
 
 % Nernst Potentials

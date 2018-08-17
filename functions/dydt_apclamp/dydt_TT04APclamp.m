@@ -1,7 +1,39 @@
 function deriv = dydt_TT04APclamp(t,statevar,V,p,c)
-statevarcell = num2cell(statevar) ;
-Id =0;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
 
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                            %% -- dydt_TT04APclamp.m --%%
+% Description: Runs the "AP Clamp Simulation for the TT04 Model based on
+% the following article --:
+        % ten Tusscher KH, Noble D, Noble PJ and Panfilov AV. A model for
+        % human ventricular tissue. Am J Physiol Heart Circ Physiol.
+        % 2004;286:H1573-89.
+
+% Inputs:
+% --> t - [array] time interval 
+% --> statevar - [array] state variable initial conditions
+% --> V - [array] voltage input used to apply AP clamp  
+% --> p - [struct array] main model parameters
+% --> c - [struct array] model parameters to be varied if population run
+
+% Outputs:
+% --> deriv - [array] state variables 
+%--------------------------------------------------------------------------
+%%
+Id =0;
+statevarcell = num2cell(statevar) ;
 [m,h,j,d,f,fCa,r,s,xs,xr1,xr2,g,Cai,CaSR,Nai,Ki] = deal(statevarcell{:}) ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%

@@ -24,7 +24,7 @@ function deriv = dydt_Ohara(t,statevar,Id,p,c)
 
 % Inputs:
 % --> t - [array] time interval 
-% --> X - [array] state variable initial conditions
+% --> statevar - [array] state variable initial conditions
 % --> Id - [double] amount of current to stimulate AP 
 % --> p - [struct array] main model parameters
 % --> c - [struct array] model parameters to be varied if population run

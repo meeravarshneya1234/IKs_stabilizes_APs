@@ -33,13 +33,10 @@ function deriv = dydt_TT04(t,statevar,Id,p,c)
 %--------------------------------------------------------------------------
 %%
 statevarcell = num2cell(statevar) ;
-
 [V,m,h,j,d,f,fCa,r,s,xs,xr1,xr2,g,Cai,CaSR,Nai,Ki] = deal(statevarcell{:}) ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
 %% Compute ionic currents
-%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 ENa = p.RTF*log(p.Nao/Nai) ;
@@ -81,13 +78,10 @@ ICab = c.GCab_*(V-ECa) ;
 
 Iion = INa + ICa + Ito + IKs + IKr + IK1 + INCX + INaK + ...
   IpCa + IpK + INab + ICab ;
-%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
-%% compute rate constants to update gates
-%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% compute rate constants to update gates
+%%%%%%%%%%%%%%%%%%%%%%%%%
 % % Na current
 minf = 1/(exp((-56.86-V)/9.03) + 1)^2 ;
 am = 1/(exp((-60-V)/5) + 1) ;
@@ -205,9 +199,7 @@ dxr1dt = (xr1inf-xr1)/tauxr1 ;
 dxr2dt = (xr2inf-xr2)/tauxr2 ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
 %% CICR and other ion transport processes
-%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 % % % Units:  uM/ms

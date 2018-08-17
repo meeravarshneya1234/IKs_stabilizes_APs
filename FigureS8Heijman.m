@@ -17,10 +17,11 @@ function datatable = FigureS8Heijman
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%--------------------------------------------------------------------------
                             %% -- FigureS8Heijman.m -- %%
-% Description: Injecting a constant inward current of 0.1 A/F while voltage is greater than -60 mV
-% to induce proarrhythmic behavior in each of the models. Tetsing the
-% percent change in APD from baseline. 
+% Description: Injecting a constant inward current of 0.1 A/F while voltage
+% is greater than -60 mV to induce proarrhythmic behavior in each of the
+% models. Tetsing the percent change in APD from baseline.
 
 % Outputs:
 % --> X_Heijman - struct that outputs the APDs, time, voltage, and state variables 
@@ -28,7 +29,7 @@ function datatable = FigureS8Heijman
 %---: Functions required to run this script :---%
 % mainHRdBA_Inject.m - runs injection simulation for Heijman only 
 %--------------------------------------------------------------------------
-
+%%
 % settings
 settings.bcl = 1000;% Interval bewteen stimuli,[ms]
 settings.freq = 100; %number of beats to stimulate first EAD 

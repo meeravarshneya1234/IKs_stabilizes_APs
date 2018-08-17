@@ -15,11 +15,12 @@
 % Intel Processor. For exact replication of figures it is best to use these
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %--------------------------------------------------------------------------
 %% Figure 1A & 1B
 %--- Description of Figure:
-% Simulations in high(10x),low(0.1x), baseline IKs models performed in Ohara
-% Model
+% Simulations in high(10x),low(0.1x), baseline IKs models performed in
+% Ohara Model
 
 %---: Functions required to run this part :---%
 % main_program.m - runs single AP simulation
@@ -196,11 +197,3 @@ ax_summary = axes('parent', summary_barplot);
 bar(spreads,0.5)
 ylabel('APD Spread')
 xticklabels({'Low','Baseline','High'})
-
-for i = 1:3
-    figure % plot population: only first 20 of 300
-    for ii = 1:300
-        plot(X2.times{ii,i},X2.V{ii,i},'linewidth',2)
-        hold on
-    end
-end

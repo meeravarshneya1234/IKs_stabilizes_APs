@@ -33,14 +33,12 @@ function deriv = dydt_TT06(t,statevar,Id,p,c)
 %--------------------------------------------------------------------------
 %%
 statevarcell = num2cell(statevar) ;
-
 [V,m,h,j,d,f,f2,fCass,r,s,xs,xr1,xr2,Rbar_ryr,Cai,Cass,CaSR,Nai,Ki] = ...
   deal(statevarcell{:}) ;
-% %%%%%%%%%%%%%%%%%%%%%%%%%
-% %% 
-% %% Compute ionic currents
-% %% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Compute ionic currents
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 ENa = p.RTF*log(p.Nao/Nai) ;
 EK = p.RTF*log(p.Ko/Ki) ;
@@ -82,11 +80,10 @@ ICab = c.GCab_*(V-ECa) ;
 
 Iion = INa + ICa + Ito + IKs + IKr + IK1 + INCX + INaK + ...
   IpCa + IpK + INab + ICab ;
-% %%%%%%%%%%%%%%%%%%%%%%%%%
-% %% 
-% %% compute rate constants to update gates
-% %% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% compute rate constants to update gates
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%
 % % Na current

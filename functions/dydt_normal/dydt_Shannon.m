@@ -32,8 +32,6 @@ function deriv = dydt_Shannon(t,statevar,Id,p,c)
 % --> deriv - [array] state variables 
 %--------------------------------------------------------------------------
 %%
-% statevarcell = num2cell(statevar) ;
-% 
 Y = statevar ;
 
 %-------------------------------------------------------------------------------

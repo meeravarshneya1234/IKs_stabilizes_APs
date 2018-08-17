@@ -1,5 +1,39 @@
-
 function deriv = dydt_Shannon_inject(t,statevar,Id,p,c,Inject)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                            %% -- dydt_Shannon_inject.m --%%
+% Description: Runs the "inject current simulation" for the Shannon Model
+% based on the following article --:
+        % Shannon TR, Wang F, Puglisi J, Weber C and Bers DM. A
+        % mathematical treatment of integrated Ca dynamics within the
+        % ventricular myocyte. Biophys J. 2004;87:3351-71.
+
+% Inputs:
+% --> t - [array] time interval 
+% --> statevar - [array] state variable initial conditions
+% --> Id - [double] amount of current to stimulate AP 
+% --> p - [struct array] main model parameters
+% --> c - [struct array] model parameters to be varied if population run
+% --> Inject - [double] amount of inward current to inject [A/F]
+
+% Outputs:
+% --> deriv - [array] state variables 
+%--------------------------------------------------------------------------
+%%
 
 % statevarcell = num2cell(statevar) ;
 % 

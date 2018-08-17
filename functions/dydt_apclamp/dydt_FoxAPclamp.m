@@ -1,5 +1,37 @@
 function deriv = dydt_FoxAPclamp(t,statevar,V,p,c)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                            %% -- dydt_Fox.m --%%
+% Description: Runs the "AP Clamp Simulation for the Fox Model based on the
+% following article --:
+        % Fox JJ, McHarg JL and Gilmour RF. Ionic mechanism of electrical
+        % alternans. Am J Physiol Heart Circ Physiol. 2002;282:H516-30.
+
+% Inputs:
+% --> t - [array] time interval 
+% --> statevar - [array] state variable initial conditions
+% --> V - [array] voltage input used to perform AP clamp
+% --> p - [struct array] main model parameters
+% --> c - [struct array] model parameters to be varied if population run
+
+% Outputs:
+% --> deriv - [array] state variables 
+%--------------------------------------------------------------------------
+%%
 statevarcell = num2cell(statevar) ;
 Id = 0;
 [Cai,CaSR,f,d,m,h,j,fCa,xKr,xKs,xto,yto] = ...
@@ -12,7 +44,6 @@ EKs = p.RTF*log((p.Ko+0.01833*p.Nao)/(p.Ki+0.01833*p.Nai)) ;
 ECa = 0.5*p.RTF*log(p.Cao/Cai) ;
 
 %% compute ionic currents
-
 % Na currents
 INa = c.GNa_*m^3*h*j*(V - ENa);
 

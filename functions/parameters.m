@@ -15,21 +15,18 @@ function [p,c] = parameters(model_name,celltype)
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
-
                             %% -- parameters.m -- %%
 % Description: Extracts the parameters for the model that is being analyzed. 
 
 % Inputs:
 % --> model_name - [string] name of model for which the parameters are needed.
-% options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
-% 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
 % --> celltype [string] - human models allow for either 'endo','epi', or 'mid' cells
 % to studied. options: TT04, TT06, Ohara - 'epi', 'endo', 'mid'; Grandi - 'epi', 'endo'
 % remaining models - ''
 
 % Outputs:
-% --> p - [struct array] with main model parameters 
-% --> c - [struct array] with parameters to be varied to create population
+% --> p - [struct array] main model parameters 
+% --> c - [struct array] parameters to be varied to create population
 %--------------------------------------------------------------------------
 %% FOX - Dog  Model 
 if strcmp(model_name,'Fox')

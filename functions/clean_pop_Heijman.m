@@ -1,40 +1,59 @@
 function Xnew = clean_pop_Heijman(settings,flags,X)
-%% -- clean_pop_Heijman.m --%%
-% Description: Removes APs with EADs or that fail to repolarize from the Heijman
-% population of APs. If there are no EADs, it returns the original population.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                        %% -- clean_pop_Heijman.m --%%
+% Description: Removes APs with EADs or that fail to repolarize from the
+% Heijman population. If there are no EADs, it returns the original
+% population. If APs with EADs are present, this function reruns new APs to
+% replace the ones with EADs. (example: original population is 300, 5 with
+% EADs,function reruns 5 APs so output returns population of 300)
 
 % Inputs:
-% --: settings - struct array of AP stimulation protocol (PCL,nBeats,...)
-% --: flags - struct array of which PKA targets are blocked
-% --: X - struct array of original population of APs that needs to be cleaned
+% --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)
+% --> flags - [struct array] indicates PKA targets to block: 0 - block; 1 -
+% no block 
+% --> X - [struct array] original population of APs that needs to be
+% cleaned
 
 % Outputs:
-% --: Xnew - struct array with APs with EADs or failed to repolarize are removed (clean
-% population)
+% --> Xnew - [struct array] APs with EADs or failed to repolarize are
+% removed (clean population)
 
 %---: Functions used in this script :---%
-% --* cleandata.m - Determines index of APs with EADs
-% --* rerunAPs.m - If APs with EADs are present, this function reruns new
-% APs to replace the ones with EADs. (example: original population is 300,
-% 5 with EADs,function reruns 5 APs so output returns population of 300)
-
-%% Determine if the population has any EADs.
+% ** cleandata.m - Determines index of APs with EADs
+%% 
+%--- Determine if the population has any EADs ---%
 [APfails,nEADs] = cleandata(cell2mat(X.APDs),X.times(:,1),X.V(:,1),settings.t_cutoff,settings.flag);
 [~,ind_failed] = find(APfails ==1); % number of failed to repolarize
 [~,ind_EADs] = find(nEADs==1); % number of EADs
 indexs = [ind_EADs ind_failed];
 
+%--- Remove APs with EADs and rerun the number of APs that were removed  ---%
 if isempty(indexs) % no EADs leave function
-    x = X.times(:,1);
-    y = X.V(:,1);
-    
-    figure
-    fig = gcf;
-    
-    figure(fig) % plot original population
-    hold on
-    cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
-    title('Heijman Original')
+%     x = X.times(:,1);
+%     y = X.V(:,1);
+%     
+%     figure
+%     fig = gcf;
+%     
+%     figure(fig) % plot original population
+%     hold on
+%     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)
+%     title('Heijman Original')
     
     Xnew = X;
     disp('No EADs in Heijman population.')

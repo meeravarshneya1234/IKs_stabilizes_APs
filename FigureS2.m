@@ -24,7 +24,7 @@
 %---: Functions required to run this part :---%
 % main_program.m - runs single AP simulation 
 %--------------------------------------------------------------------------
-
+%%
 %---- Set Up Simulation ----%
 settings.model_name = 'TT04';
 settings.celltype = 'endo'; 

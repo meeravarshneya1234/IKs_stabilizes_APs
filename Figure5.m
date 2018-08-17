@@ -23,7 +23,7 @@
 % a general phenomenon, we examined population variability and the susceptibility 
 % to EADs across models. 
 
-%--- Functions used in this part:
+%---: Functions required to run this script :---%
 % main_program.m - runs simulation 
 % mtit - create main title (from MATLAB file exchange) 
 %--------------------------------------------------------------------------

@@ -30,6 +30,7 @@ function datatable = pop_program(settings)
 % ** ICs.m - Extracts the initial conditions for the model called.
 % ** scaling_factors.m - Varies the parameters to create the population.
 % ** dydt functions - one for each model, calculates state variables.
+% ** find_APD.m - calculates APD for single AP 
 %--------------------------------------------------------------------------
 
 %% 1--- Load Model Parameters

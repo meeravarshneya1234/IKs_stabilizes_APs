@@ -15,7 +15,6 @@ function X = rerunAPs(settings,clean_datatable)
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
-
                             %% -- rerunAPs.m --%%
 % Description: Run new APs to replace ones removed with EADs.
 

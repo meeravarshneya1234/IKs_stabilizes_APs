@@ -24,7 +24,8 @@ function X2 = reformat_data(X1, variations)
 % --> variations - [double] number of variants in the population 
 
 % Outputs:
-% --> X2 - [struct array] reformatted 
+% --> X2 - [struct array] reformatted data that was originally in the
+% parallelized form 
 %--------------------------------------------------------------------------
 %%
 F = fieldnames(X1);

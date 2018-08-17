@@ -1,5 +1,5 @@
 function datatable = FigureS8Heijman
-%% Figure S7 Heijman: Inducing proarrhythmic behavior through constant inward current 
+%% Figure S8 Heijman: Inducing proarrhythmic behavior through constant inward current 
 %% inject in Heijman model. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,7 +30,7 @@ function datatable = FigureS8Heijman
 %--------------------------------------------------------------------------
 
 % settings
-settings.PCL = 1000;% Interval bewteen stimuli,[ms]
+settings.bcl = 1000;% Interval bewteen stimuli,[ms]
 settings.freq = 100; %number of beats to stimulate first EAD 
 settings.storeLast = 1; % Determine how many beats to keep. 1 = last beat, 2 = last two beats 
 settings.stimdur = 2;% Stimulus duration

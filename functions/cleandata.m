@@ -1,21 +1,38 @@
 function [APfails,EADs] = cleandata(APDs,times,volts,t_cutoff,flag)
-                            %% -- cleandata.m -- %%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+
+                            %% -- cleandata.m --%%
 % Description: Finds index of APs with EADs or fail to repolarize. 
 
 % Inputs:
-% --> APDs -- population's APDs 
-% --> times -- population's time matricies  
-% --> volts -- population's voltage matricies  
-% --> t_cutoff -- time between EAD cutoff 
-% --> flag -- set to 1 if Heijman model 
-
+% --> APDs - [array] population's APDs 
+% --> times - [cell array] population's time matricies  
+% --> volts - [cell array] population's voltage matricies  
+% --> t_cutoff - [double] time between EAD cutoff 
+% --> flag - [binary] set to 1 if Heijman model, and 0 if any other model
 
 % Outputs:
-% --> APfails - index of APs that failed to repolarize. 
-% --> EADs - index of APs that formed EADs. 
+% --> APfails - [array] index of APs that failed to repolarize. 
+% --> EADs - [array] index of APs that formed EADs. 
 %--------------------------------------------------------------------------
-%% Run Function 
-if ~exist('t_cutoff','var')
+%% 
+
+if ~exist('t_cutoff','var') 
     t_cutoff = 5;
 end
 

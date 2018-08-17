@@ -1,4 +1,20 @@
 function [ic,Vind] = ICs(model_name,steady_state,pcl)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
                             %% -- ICs.m -- %%
 % Description: Extracts either the steady state or original paper initial
 % conditions for the model called. 
@@ -10,22 +26,23 @@ function [ic,Vind] = ICs(model_name,steady_state,pcl)
 % Methods and Table S1. 
 
 % Inputs:
-% --: model_name - name of model for which the parameters are needed.
+% --> model_name - [string] name of model for which the parameters are needed.
 % options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
 % 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
-% --: steady_state - 1 (steady state conditions); 0 (non-steady state
+% --> steady_state - [binary] 1 (steady state conditions); 0 (non-steady state
 % conditions) 
-% --: pcl - the pacing length for the simulation to be run. 
+% --> pcl - [binary] the pacing length for the simulation to be run. 
 
 % Outputs:
-% --> ic - struct array with initial conditions
-% --> Vind - index of Voltage in the matrix of initial conditions
+% --> ic - [struct array] with initial conditions
+% --> Vind - [double] index of Voltage in the matrix of initial conditions
 
 %---: Functions used in this script :---%
-% --* initial_conditions.m - Extracts the initial conditions from the paper if 
+% ** initial_conditions.m - Extracts the initial conditions from the paper if 
 % steady_state = 0 or if PCL is not 500,1000,5000.
 % -------------------------------------------------------------------------
-%% Run Function 
+%% 
+
 if steady_state == 1 % use steady state initial conditions 
     load('ICs_SS.mat')
     if sum(pcl == [500,1000,5000]) > 0

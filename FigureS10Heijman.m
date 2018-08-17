@@ -1,22 +1,43 @@
 function datatable = FigureS10Heijman()
-%% Step 1 - Run under baseline conditions to get input voltage and time for AP Clamp
-settings.freq =1;
-settings.storeLast =1;
-settings.stimdur = 2;
-settings.Istim = -36.7;
-settings.showProgress = 1;
-settings.bcl =1000;
-settings.ISO = 0; 
 
-flags.SS = 1;
-flags.ICaL = 1;
-flags.IKs = 1;
-flags.PLB = 1;
-flags.TnI = 1;
-flags.INa = 1;
-flags.INaK = 1;
-flags.RyR = 1;
-flags.IKur = 1;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+                            %% -- FigureS10Heijman.m -- %%
+% Description: Run AP Clamp in Heijman model 
+
+% Outputs:
+% --> datatable - struct that outputs the APDs, time, voltage, and state variables 
+
+%---: Functions required to run this script :---%
+% mainHRdBA.m - runs baseline simulation for Heijman  
+% funHRdBA_APclamp - runs AP Clamp for Heijman model 
+%--------------------------------------------------------------------------
+%% Run under baseline conditions to get input voltage and time for AP Clamp
+settings.freq =1;%number of beats to stimulate 
+settings.storeLast =1;% Determine how many beats to keep. 1 = last beat, 2 = last two beats 
+settings.stimdur = 2;% Stimulus duration
+settings.Istim = -36.7;%Stimulus amplitude for each model, see Table S1 for details
+settings.bcl =1000;% Interval bewteen stimuli,[ms]
+settings.ISO = 0; %concentration of ISO to add; 0 = no ISO 
+settings.SS = 1;% 1 - run steady state conditions 0 - do not run steady state conditions 
+settings.showProgress = 0;
+
+% option to block PKA targets: no block = 1; 100% block = 0 
+flags.ICaL = 1; flags.IKs = 1; flags.PLB = 1; flags.TnI = 1; flags.INa = 1;
+flags.INaK = 1; flags.RyR = 1; flags.IKur = 1;
 
 [currents,State,Ti,APDs,settings]=mainHRdBA(settings,flags);
 t_input = Ti; 

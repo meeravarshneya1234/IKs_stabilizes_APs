@@ -62,7 +62,7 @@ else % EADs present
     clean_datatable = [];
     clean_datatable.times = X.times(~(nEADs' + APfails'));
     clean_datatable.V= X.V(~(nEADs' + APfails'));
-    clean_datatable.states = X.state(~(nEADs' + APfails'));
+    clean_datatable.states = X.states(~(nEADs' + APfails'));
     clean_datatable.APDs = X.APDs(~(nEADs' + APfails'));
     clean_datatable.scaling = X.scalings(~(nEADs' + APfails'),:);
     

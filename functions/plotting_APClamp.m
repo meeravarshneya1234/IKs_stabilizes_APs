@@ -1,8 +1,30 @@
 function plotting_APClamp(settings,datatable)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Set Up Figures
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+
+                       %% -- plotting_APClamp.m -- %%
+% Description: Plot figures for Figure6.m 
+
+% Inputs:
+% --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)
+% --> datatable - [struct array] AP Clamp data 
+%--------------------------------------------------------------------------
+
+%--- Set Up Figures ---%
 figure('name','Voltage')
 Volt = gcf;
 
@@ -12,9 +34,6 @@ Ks_Figure = gcf;
 figure('name','IKr')
 Kr_Figure = gcf;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 colors = jet(length(settings.vals_graph));
 
 %-- AP Clamp Variables

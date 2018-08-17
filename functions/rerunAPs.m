@@ -1,10 +1,41 @@
 function X = rerunAPs(settings,clean_datatable)
-EADs = 1;
 
-%% Run the Population 
-while EADs > 0
-    X = pop_program(settings);
-    X = reformat_data(X, settings.variations);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+
+                            %% -- rerunAPs.m --%%
+% Description: Run new APs to replace ones removed with EADs.
+
+% Inputs:
+% --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)
+% --> clean_datatable - [struct array] cleaned population of APs 
+
+% Outputs:
+% --> X - [struct array] final population 
+
+%---: Functions required to run this function :---%
+% ** pop_program.m - runs population for each model using parloop
+% ** reformat_data.m - restructures output from the pop_program.m 
+% ** cleandata.m - Determines index of APs with EADs 
+%% 
+%--- Run Population ---%
+EADs = 1;
+while EADs > 0 % keep running population until all APs have no EADs
+    X = pop_program(settings); % run population simulation 
+    X = reformat_data(X, settings.variations);% reformat data that is in the parallel format
     
     n = settings.variations+1;
     X.times(n:settings.totalvars,1)=clean_datatable.times;
@@ -27,7 +58,7 @@ while EADs > 0
     settings.variations = EADs;
 end
 
-%% check to make sure no duplicates in scalings after rerun 
+%--- Check to make sure no duplicate model variants after rerun ---%
 x = cell2mat(X.scalings);
 [u,I,J] = unique(x, 'rows', 'first');
 hasDuplicates = size(u,1) < size(x,1);

@@ -1,17 +1,34 @@
 function [ICaL,IKr,IKs]=currents(model_name,state_vars,p,c)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+
                             %% -- currents.m -- %%
 % Description: Calculates the ICaL, IKs, and IKr currents for the AP. 
 
 % Inputs:
-% --> model_name - name of model for which the parameters are needed.
-% --> state_vars - matrix of state variables calculated 
-% --> p - struct array with main model parameters 
-% --> c - struct array with parameters to be varied to create population
+% --> model_name - [string] name of model for which the parameters are needed.
+% --> state_vars - [cell array] of state variables calculated 
+% --> p - [struct array] main model parameters 
+% --> c - [struct array] parameters to be varied to create population
 
 % Outputs:
-% --> ICaL - L-type calcium current 
-% --> IKs  - slow delayed rectifier potassium current  
-% --> IKr -  rapid delayed rectifier potassium current 
+% --> ICaL - [array] L-type calcium current 
+% --> IKs  - [array] slow delayed rectifier potassium current  
+% --> IKr -  [array] rapid delayed rectifier potassium current 
 %--------------------------------------------------------------------------
 %% FOX
 if strcmp(model_name,'Fox')

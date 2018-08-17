@@ -1,20 +1,37 @@
 function datatable = pop_program(settings)
-%% -- pop_program.m -- %%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                        %% -- pop_program.m -- %%
 % Description: Runs a heterogenous population.
 
 % Inputs:
-% --> settings - AP stimulation protocol (PCL,nBeats,...)
+% --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)
 
 % Outputs:
-% --> datatable - struct array with AP info including: APD, time matrix
+% --> datatable - [struct array] with AP info including: APD, time matrix
 % and state variables.
 
 %---: Functions used in this script :---%
-% --* parameters.m - Extracts the model parameters for the model called.
-% --* ICs.m - Extracts the initial conditions for the model called.
-% --* scaling_factors.m - Varies the parameters to create the population.
-% --* dydt functions - one for each model, calculates state variables.
+% ** parameters.m - Extracts the model parameters for the model called.
+% ** ICs.m - Extracts the initial conditions for the model called.
+% ** scaling_factors.m - Varies the parameters to create the population.
+% ** dydt functions - one for each model, calculates state variables.
 %--------------------------------------------------------------------------
+
 %% 1--- Load Model Parameters
 [p,c] = parameters(settings.model_name,settings.celltype);
 % p --> main model parameters

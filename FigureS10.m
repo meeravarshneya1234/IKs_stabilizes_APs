@@ -1,3 +1,32 @@
+%% Figure S10: AP Clamp Simulations across Models
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+%% Figure S10
+%--- Description of Figure:
+% Runs AP clamps simulations in all models as done in Figure6.m 
+
+%---: Functions required to run this part :---%
+% main_program.m - runs baseline simulation using parfor loop
+% main_APClamp.m - runs ap clamp simulation using parfor loop
+% reformat_data.m - reformats the data collected from inject_current_program
+% FigureS10Heijman.m - runs AP Clamp simulation for Heijman model 
+%--------------------------------------------------------------------------
+%%
+%---- Set Up Simulation ----%
 modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT04','TT06','Grandi'};
 celltypes = {'','','','','','endo','endo','endo','endo'}; % size should be same as model_name, enter one for each model
 amps = [36.4,32.2,35,35,30.9,25,22.6,32.2,20.6 ]; % Stimulus amplitude 
@@ -59,9 +88,6 @@ for index = 1:length(modelnames)
     loglog(apclamp_settings.repol_change(1:n(index)),AKr(1:n(index))/AKr(BL),'k-x', 'linewidth',2)
     hold on
     loglog(apclamp_settings.repol_change(1:n(index)),AKs(1:n(index))/AKs(BL),'k-o','linewidth',2)
-    %xlabel('APD Factor')
-    %ylabel('norm AUC')
-    %legend('IKr','IKs')
     set(gca,'FontSize',12,'FontWeight','bold')
     title(modelnames{index})
     xlim([0,3])
@@ -71,14 +97,12 @@ for index = 1:length(modelnames)
     figure(fig2)
     subplot(3,3,index+1)
     bar([AKr(n(index))/AKr(BL),AKs(n(index))/AKs(BL)],0.5)
-    %ylabel('norm current (A/F)')
     set(gca,'XTickLabels',{'IKr','IKs'})
-    title(modelnames{index})
-    %ylim([0 20])
-       
+    title(modelnames{index})      
 end
 
-Heijman_APClamp = FigureS6Heijman();
+%---- Run Simulation in Heijman Model ----%
+Heijman_APClamp = FigureS10Heijman();
 Heijman_APClamp = reformat_data(Heijman_APClamp,11);
 
 logscalefactors = linspace(log(1/3),log(3),11) ;

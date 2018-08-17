@@ -1,21 +1,38 @@
 function [datatable] = main_program(settings)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
                             %% -- main_program.m -- %%
 % Description: Runs the assigned electrophysiology model and outputs
 % different metrics about the AP and current traces. 
 
 % Inputs:
-% --> settings - AP stimulation protocol (PCL,nBeats,...)
+% --> settings - [struct array] AP stimulation protocol (PCL,nBeats,...)
 
 % Outputs:
-% --> datatable - struct array with AP info including: APD, time matrix
+% --> datatable - [struct array] AP info including: APD, time matrix
 % and state variables, AUC of ICaL,IKs,IKr waveforms, ICaL,IKs,IKr currents, 
 % IKs Fraction. 
 
 %---: Functions used in this script :---%
-% --* parameters.m - Extracts the model parameters for the model called. 
-% --* ICs.m - Extracts the initial conditions for the model called. 
-% --* dydt functions - one for each model, calculates state variables.
+% ** parameters.m - Extracts the model parameters for the model called. 
+% ** ICs.m - Extracts the initial conditions for the model called. 
+% ** dydt functions - one for each model, calculates state variables.
 %--------------------------------------------------------------------------
+
 %% 1--- Load Model Parameters 
 % First check if running the optimized models, the celltype selected is endo.
 [p,c] = parameters(settings.model_name,settings.celltype);

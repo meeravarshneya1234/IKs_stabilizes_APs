@@ -1,5 +1,38 @@
 function deriv = dydt_Grandi(t,y,Id,p,c)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
+                            %% -- dydt_Grandi.m --%%
+% Description: Runs the Grandi Model based on the following article --:
+        % Grandi E, Pasqualini FS and Bers DM. A novel computational model
+        % of the human ventricular action potential and Ca transient. J Mol
+        % Cell Cardiol. 2010;48:112-21.
+
+% Inputs:
+% --> t - [array] time interval 
+% --> statevar - [array] state variable initial conditions
+% --> Id - [double] amount of current to stimulate AP 
+% --> p - [struct array] main model parameters
+% --> c - [struct array] model parameters to be varied if population run
+
+% Outputs:
+% --> deriv - [array] state variables 
+%--------------------------------------------------------------------------
+%%
+
 ydot = zeros(size(y));                                    
 
 V = y(39);

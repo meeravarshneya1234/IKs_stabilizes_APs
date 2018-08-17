@@ -1,15 +1,30 @@
 function ic = initial_conditions(model_name)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- "Slow delayed rectifier current protects ventricular myocytes from
+% arrhythmic dynamics across multiple species: a computational study" ---%
+
+% By: Varshneya,Devenyi,Sobie 
+% For questions, please contact Dr.Eric A Sobie -> eric.sobie@mssm.edu 
+% or put in a pull request or open an issue on the github repository:
+% https://github.com/meeravarshneya1234/IKs_stabilizes_APs.git. 
+
+%--- Note:
+% Results displayed in manuscript were run using MATLAB 2016a on a 64bit
+% Intel Processor. For exact replication of figures it is best to use these
+% settings.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------------------------------------------
                             %% -- initial_conditions.m -- %%
 % Description: Extracts original paper initial conditions for the model called. 
 
 % Inputs:
-% --: model_name - name of model for which the parameters are needed.
+% --> model_name - [string] name of model for which the parameters are needed.
 % options: 'Fox'(dog),'Hund'(dog),'Livshitz'(guinea pig),'Devenyi'(guinea pig),
 % 'Shannon'(rabbit),'TT04'(human),'TT06'(human),'Grandi'(human),'Ohara'(human)
 
 % Outputs:
-% --> ic - struct array with initial conditions
-
+% --> ic - [struct array] with initial conditions
+%--------------------------------------------------------------------------
 %% FOX
 if strcmp(model_name,'Fox')
     ic.V = -94.7 ;

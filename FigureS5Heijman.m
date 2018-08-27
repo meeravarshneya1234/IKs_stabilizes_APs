@@ -1,4 +1,4 @@
-function X_Heijman = FigureS3Heijman()
+function X_Heijman = FigureS5Heijman()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--- "Slow delayed rectifier current protects ventricular myocytes from
@@ -15,7 +15,7 @@ function X_Heijman = FigureS3Heijman()
 % settings.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
-                            %% -- FigureS3Heijman.m -- %%
+                            %% -- FigureS5Heijman.m -- %%
 % Description: Runs the Heijman model simulation. 
 
 % Outputs:

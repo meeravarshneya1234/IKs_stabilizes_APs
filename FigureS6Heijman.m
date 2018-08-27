@@ -15,77 +15,77 @@ function X_Heijman = FigureS6Heijman()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--------------------------------------------------------------------------
                             %% -- FigureS6Heijman.m -- %%
-% Description: Runs the Heijman model calcium perturbation simulation. 
+% Description: Runs the Heijman model population simulation. 
 
 % Outputs:
-% --> X_Heijman - struct that outputs the APDs, time, voltage, and state variables 
+% --> X_Heijman - outputs the APDs, time, voltage, and state variables 
 
 %---: Functions required to run this script :---%
 % mainHRdBA.m - runs Heijman model simulation (downloaded code online)
-% mtit.m - create main title (from MATLAB file exchange) 
+% clean_pop_Heijman.m - 
+% reformat_data.m - 
 %--------------------------------------------------------------------------
+%%
+% settings
+settings.bcl = 1000;
+settings.freq =100;
+settings.storeLast = 1;
+settings.stimdur = 2;
+settings.Istim = -36.7;
+settings.showProgress = 1;
 
-% settings 
-settings.freq =100; %number of beats to stimulate first EAD , see Figure S5 for details
-settings.storeLast =3; % Determine how many beats to keep. 1 = last beat, 2 = last two beats 
-settings.stimdur = 2;% Stimulus duration
-settings.Istim = -36.7; %Stimulus amplitude for each model, see Table S1 for details
-settings.showProgress = 0;
-settings.bcl =1000; % Interval bewteen stimuli,[ms]
+% parameters to vary to create population, set to 1 for default
+c.ICaLB = 1; c.IKsB = 1; c.IKrB = 1; c.INaKB =1; c.INaCaB = 1; c.IKpB = 1;
+c.IK1B = 1; c.INabB = 1; c.ITo1B = 1; c.ITo2B = 1; c.INaB = 1; c.INaLB = 1;
+c.IClB = 1; c.IpCaB = 1; c.ICabB = 1; c.IrelB = 1; c.IupB = 1; c.IleakB = 1;
 
-colors = hsv(4);
-settings.ISO = 0; % concentration of ISO; 0 = no ISO 
-settings.SS = 1; % 1 - run steady state conditions 0 - do not run steady state conditions 
+variations = 300;
+settings.sigma = 0.2;
+scalings = exp(settings.sigma*randn(length(fieldnames(c)),variations))' ;
+
+settings.totalvars = variations;
+settings.t_cutoff = 3;
+settings.flag = 1;
+
+settings.ISO = 0;
+settings.SS = 1;
 
 % option to block PKA targets: no block = 1; 100% block = 0 
 flags.ICaL = 1; flags.IKs = 1; flags.PLB = 1; flags.TnI = 1; flags.INa = 1;
 flags.INaK = 1; flags.RyR = 1; flags.IKur = 1;
 
-Ca_scale = [1,1.5,1.9,2];
+X = [];
 
-disp('Heijman Model')
-figure
-fig1 = gcf;
-
-for i = 1:length(Ca_scale)
-    settings.ICaLB = Ca_scale(i);
+parfor i = 1:variations
+    scaling = scalings(i,:);
+    [currents,State,Ti,APD]=mainHRdBA(settings,flags,scaling);
+    X(i).times = Ti;
+    X(i).V =  State(:,1);
+    X(i).states =  State;
+    X(i).currents= currents;
+    X(i).APDs = APD;
+    X(i).scalings = scaling;
     
-    [currents,State,Ti,APDs,settings]=mainHRdBA(settings,flags);
-    
-    X_Heijman.APDs{i} = APDs;
-    X_Heijman.times{i} = Ti;
-    X_Heijman.V{i} =  State(:,1);
-    X_Heijman.statevars{i} =  State;
-    X_Heijman.currents{i} = currents;
-    [~,indV] = max(State(:,1));
-    V = State(:,1);
-    x2 = find(floor(V)==floor(V(1)) & Ti > Ti(indV),1); % and ends
-    
-    X_Heijman.Area_Ca(i) = trapz(Ti(1:x2),currents.ical(1:x2));
-%     X_Heijman.Area_Ks(i) = trapz(Ti(1:x2),currents.iks(1:x2));
-%     X_Heijman.Area_Kr(i) = trapz(Ti(1:x2),currents.ikr(1:x2));
-%     X_Heijman.IKs_Fraction = datatable.Area_Ks(ii,i)/(datatable.Area_Kr(ii,i)+datatable.Area_Ks(ii,i));
-    
-    figure(fig1)
-    subplot(1,2,1)
-    plot(X_Heijman.times{i},X_Heijman.V{i},'color',colors(i,:),'linewidth',2);
-    hold on
-    xlabel('time (ms)')
-    ylabel('V (mv)')
-    set(gcf,'Position',[20,20,600,300])
-    xlim([1900 3000])
-    
-    if i == 1 || i ==3
-        subplot(1,2,2)
-        plot(X_Heijman.times{i},X_Heijman.currents{i}.ical,'color',colors(i,:),'linewidth',2);
-        hold on
-        xlabel('time (ms)')
-        ylabel('ICaL (A/F)')
-        set(gcf,'Position',[20,20,600,300])
-        xlim([1900 3000])
-    end
-    disp(['Completed GKs*1 & PCa*', num2str(Ca_scale(i))])
-    
+    disp(['Model Variant # ', num2str(i)]);
 end
-mtit('Heijman' ,...
-    'fontsize',14);
+
+X = reformat_data(X,variations);
+X_Heijman = clean_pop_Heijman(settings,flags,X);
+normAPDs = X_Heijman.APDs - median(X_Heijman.APDs);
+temp = min(normAPDs):25:max(normAPDs);
+bins = linspace(min(normAPDs),max(normAPDs),length(temp));
+medians_Heijman = median(APDs);
+
+pert1 = prctile(APDs,90);
+pert2 = prctile(APDs,10);
+X_Heijman.APDSpread =(pert1 - pert2)/ median(APDs);
+
+figure
+histoutline(normAPDs,bins,'linewidth',4);
+hold on
+title('Heijman')
+set(gca,'FontSize',12,'FontWeight','bold')
+xlabel('APD (ms)','FontSize',12,'FontWeight','bold')
+ylabel('Count','FontSize',12,'FontWeight','bold')
+xlim([-300 300])
+ylim([0 180])

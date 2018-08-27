@@ -52,6 +52,7 @@ settings1.Ca_scale = [1 7.5 15.5]; % perturb ICaL, set to 1 for baseline
 %---- Run Simulation ----%
 %% Plot Figure 2A,2B,2C
 strs = {'low','base','high'};
+titlestrings = {'Figure 2C - Low IKs Model','Figure 2B - Baseline IKs Model','Figure 2A - High IKs Model'};
 for i = 1:length(strs)
     settings1.Ks_scale = Ks_scale(i);
     settings1.Kr_scale = Kr_scale(i);
@@ -64,10 +65,11 @@ for i = 1:length(strs)
     plot(X.times{1,2},X.V{1,2},'linewidth',2)
     plot(X.times{1,3},X.V{1,3},'linewidth',2)
     ylim([-100 60])
-    title([strs{i} ' IKs Model'])
+    title(titlestrings(i))
     legend('ICaL*1','ICaL*7.5','ICaL*15.5')
     xlabel('time (ms)')
     ylabel('Voltage (mV)')
+    set(gca,'FontSize',12,'FontWeight','bold')
     
     highlow_EAD.(strs{i}) = X;
 end
@@ -132,3 +134,5 @@ plot(settings2.Ca_scale,highlow_multipleEAD.base.APDs,'linewidth',2,'color','k')
 plot(settings2.Ca_scale,highlow_multipleEAD.high.APDs,'linewidth',2,'color','r')
 xlabel('ICaL Factor')
 ylabel('APDs (ms)')
+set(gca,'FontSize',12,'FontWeight','bold')
+title('Figure 2D')

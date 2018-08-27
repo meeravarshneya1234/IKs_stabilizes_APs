@@ -137,6 +137,7 @@ else
         xlabel('time(ms)')
         ylabel('voltage(mV)')
         title(sims{ii})
+        set(gca,'FontSize',12,'FontWeight','bold')
     end
     X = clean_datatable;
     disp([num2str(length(indexs)) ' APs removed from each population.'])
@@ -149,6 +150,7 @@ bar(spreads(1:3),0.5)
 ylabel('APD Spread')
 xticklabels(sims(1:3))
 title('Figure 7D')
+set(gca,'FontSize',12,'FontWeight','bold')
 disp(['Final Population has: ' num2str(variations - length(indexs)) ' AP variants.'])
 
 %% Plot Figure S11
@@ -157,6 +159,7 @@ figure
 bar(spreads,0.5)
 ylabel('APD Spread')
 xticklabels(sims)
+set(gca,'FontSize',12,'FontWeight','bold')
 title('Figure S11')
 
 %% Figure 7E 
@@ -201,7 +204,7 @@ bar(ICaL_Factors,0.5)
 ylabel('ICaL Factor')
 xticklabels(sims)
 title('Figure 7E')
-
+set(gca,'FontSize',12,'FontWeight','bold')
 
 % EADs occur at a ICaL Factor of 2 on beat 91. -- no ISO 
 % EADs occur at a ICaL Factor of 36.9 on beat 98. -- ISO 

@@ -74,6 +74,9 @@ for i = 1:length(modelnames)
         ylabel('V (mv)')
         set(gcf,'Position',[20,20,600,300])
         ylim([-100 100])
+        title('Figure 4A')
+        set(gca,'FontSize',12,'FontWeight','bold')
+        
         
         if ii == 1 || ii == 3
             subplot(1,2,2)
@@ -82,6 +85,9 @@ for i = 1:length(modelnames)
             xlabel('time (ms)')
             ylabel('ICaL (A/F)')
             set(gcf,'Position',[20,20,600,300])
+            title('Figure 4B')
+            set(gca,'FontSize',12,'FontWeight','bold')
+
         end
         
     end
@@ -102,3 +108,5 @@ ax = axes('parent', handle);
 bar(abs(ICaL),'stacked')
 set(ax, 'xticklabel',({'Grandi','TT04','Ohara'}))
 legend('baseline ICaL','ICaL below threshold')
+set(gca,'FontSize',12,'FontWeight','bold')
+title('Figure 4C')

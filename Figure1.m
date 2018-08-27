@@ -68,6 +68,7 @@ plot(X1.times{2,1},X1.V{2,1},'linewidth',2,'color','r') %-high ohara iks model
 xlabel('time(ms)')
 ylabel('Voltage(mV)')
 legend('low iks model','baseline iks model','high iks model')
+set(gca,'FontSize',12,'FontWeight','bold')
 
 %% Plot Figure 1B - Ohara High, Low IKs & IKr Waveforms + IKs Fraction
 figure
@@ -80,6 +81,7 @@ xlim([0 600])
 title('Ohara BL Model')
 xlabel('time(ms)')
 ylabel('Current (A/F)')
+set(gca,'FontSize',12,'FontWeight','bold')
 
 subplot(1,3,2) % plot the low ohara iks and ikr waveforms 
 plot(X1.times{1,1},X1.IKs{1,1},'linewidth',2,'color','b')
@@ -90,6 +92,7 @@ xlim([0 600])
 title('Ohara Low Model')
 xlabel('time(ms)')
 ylabel('Current (A/F)')
+set(gca,'FontSize',12,'FontWeight','bold')
 
 subplot(1,3,3) % plot the low ohara iks and ikr waveforms 
 plot(X1.times{2,1},X1.IKs{2,1},'linewidth',2,'color','r')
@@ -100,6 +103,8 @@ xlim([0 600])
 title('Ohara High Model')
 xlabel('time(ms)')
 ylabel('Current (A/F)')
+set(gca,'FontSize',12,'FontWeight','bold')
+
 
 % plot Iks fractions
 figure
@@ -107,12 +112,14 @@ IKs_Fractions = [X1.IKs_Fraction(1) X1_base.IKs_Fraction X1.IKs_Fraction(2)];
 bar(IKs_Fractions,0.5)
 xticklabels({'Low','Baseline','High'})
 ylabel('IKs Fraction')
+set(gca,'FontSize',12,'FontWeight','bold')
 
 % zoomed in on low iks model iks
 figure
 bar(X1.IKs_Fraction(1))
 ylim([0 0.02])
 ylabel('low IKs Fraction zoomed in')
+set(gca,'FontSize',12,'FontWeight','bold')
 
 %--------------------------------------------------------------------------
 %% Figures 1C & 1D 
@@ -189,6 +196,7 @@ for i = 1:3
     pert2 = prctile(APDs,10);
     spreads(i) =(pert1 - pert2)/ median(APDs);
 end
+set(gca,'FontSize',12,'FontWeight','bold')
 
 %% Plot Figure 1D - Ohara High, Baseline, Low IKs APD Spreads
 figure 
@@ -197,3 +205,4 @@ ax_summary = axes('parent', summary_barplot);
 bar(spreads,0.5)
 ylabel('APD Spread')
 xticklabels({'Low','Baseline','High'})
+set(gca,'FontSize',12,'FontWeight','bold')

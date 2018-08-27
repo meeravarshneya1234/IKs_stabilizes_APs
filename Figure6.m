@@ -103,8 +103,10 @@ xlabel('APD Factor')
 ylabel('norm AUC')
 legend('IKr','IKs')
 set(gca,'FontSize',12,'FontWeight','bold')
+title('Figure 6C')
 
 figure
 bar([AKr(end)/AKr(BL),AKs(end)/AKs(BL)],0.5)
 ylabel('norm current (A/F)')
 set(gca,'XTickLabels',{'IKr','IKs'})
+title('Figure 6C - inset')

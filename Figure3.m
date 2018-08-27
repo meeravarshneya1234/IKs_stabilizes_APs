@@ -21,7 +21,7 @@
 %--- Description of Figure: 
 % APs + IKr and IKs Waveforms for human models - Grandi, Ohara, and TT04 
 % Models + IKs Fraction Barplot. All panels with Ohara data taken from the 
-% code in Figure 1. 
+% code in Figure1.m. 
 
 %---: Functions required to run this script :---%
 % main_program.m - runs single AP simulation 
@@ -65,6 +65,7 @@ for i = 1:length(modelnames)% for loop going through each model
     xlabel('time (ms)')
     ylabel('V (mv)')
     set(gcf,'Position',[20,20,600,300])
+    set(gca,'FontSize',12,'FontWeight','bold')
     
     subplot(1,2,2) % IKs and IKr plots
     plot(X.times{:},X.IKs{:},'color','b','linewidth',2);
@@ -74,7 +75,8 @@ for i = 1:length(modelnames)% for loop going through each model
     ylabel('current (A/F)')
     legend('IKs','IKr')
     set(gcf,'Position',[20,20,600,300])
-    
+    set(gca,'FontSize',12,'FontWeight','bold')
+
     title_var = strjoin({'Figure 3A', modelnames{i}});
     
     mtit(title_var,...
@@ -94,12 +96,13 @@ set(ax_summary, 'xticklabel',{'Grandi','TT04'})
 ylabel('IKs Fraction')
 title('Figure 3B')
 xtickangle(90)
+set(gca,'FontSize',12,'FontWeight','bold')
 
 %--------------------------------------------------------------------------
 %% Figures 3C & 3D 
 %--- Description of Figures: 
 % Population variability and calculated APD Spreads for Grandi, Ohara, TT04.
-% All panels with Ohara data taken from the code in Figure 1. 
+% All panels with Ohara data taken from the code in Figure1.m. 
 
 %--- Functions used in this script:
 % pop_program.m - runs simulation 
@@ -161,6 +164,7 @@ for i = 1:length(modelnames)
     xlabel('time (ms)')
     ylabel('voltage (mV)')
     ylim([-100 60])
+    set(gca,'FontSize',12,'FontWeight','bold')
     
     % histogram calculations
     APDs = cell2mat(Xnew.APDs);

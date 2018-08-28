@@ -6,7 +6,7 @@ This folder contains source code to reproduce the figures and supplemental mater
 ## Requirements
 * MATLAB - version 2014 or higher; 2016a was used to run all simulations.
 
-## Electrophysiology Models 
+## Ventricular Myocyte Models 
 * Canine  
   * **Fox Model** [Fox JJ, McHarg JL, Gilmour RF. Ionic mechanism of electrical alternans. *Am J Physiol Heart Circ Physiol*. 2002;282:H516-30.]
   

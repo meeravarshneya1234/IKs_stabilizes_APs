@@ -57,5 +57,5 @@ plot(datatable.times{1},datatable.V{1},'linewidth',2,'color','b')
 xlabel('Time (ms)')
 ylabel('Voltage (mV)')
 set(gca,'FontSize',12,'FontWeight','bold')
-title('Figure S5')
+title('Figure S1')
 

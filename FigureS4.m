@@ -127,7 +127,7 @@ ylabel('APDs (ms)')
 title('Figure S4C')
 set(gca,'FontSize',12,'FontWeight','bold')
 
-%% Figures S2D,S2E
+%% Figures S4D,S4E
 %--- Description of Figures: 
 % Calcium perturbations in high(20x),baseline IKs models performed
 % in Grandi Model
@@ -235,5 +235,5 @@ plot(settings.Ca_scale,high_APDs,'linewidth',2,'color','r')
 xlabel('ICaL Factor')
 ylabel('APDs (ms)')
 set(gca,'FontSize',12,'FontWeight','bold')
-title('Figure 24F')
+title('Figure 4F')
 

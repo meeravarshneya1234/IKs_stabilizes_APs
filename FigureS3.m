@@ -330,7 +330,7 @@ legend('Baseline', 'High')
 pert1 = prctile(APDs,90);
 pert2 = prctile(APDs,10);
 spreads(2) =(pert1 - pert2 )/ median(APDs); % high grandi APD spread
-title('Figure S1I - Grandi')
+title('Figure S3I - Grandi')
 
 
 figure % plot all APD Spreads 
@@ -339,4 +339,4 @@ ax_summary = axes('parent', summary_barplot);
 bar(spreads,0.5)
 ylabel('APD Spread')
 xticklabels({'Baseline','High'})
-title('Figure S1J - Grandi')
+title('Figure S3J - Grandi')

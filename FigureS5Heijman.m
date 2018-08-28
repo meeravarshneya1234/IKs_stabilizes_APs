@@ -27,11 +27,11 @@ function X_Heijman = FigureS5Heijman()
 %% 
 %---- Set up settings ----%
 settings.PCL = 1000;
-settings.freq =1;
+settings.freq =2;
 settings.storeLast = 2; % save both beats 99 and 100
 settings.stimdur = 2;
 settings.Istim = -36.7;
-settings.showProgress = 1;
+settings.showProgress = 0;
 
 iso_concs = 0;
 settings.SS = 1;
@@ -68,9 +68,9 @@ for ii = 1:length(iso_concs)
     
     
     subplot(1,2,2)
-    plot(Ti,IKs,'linewidth',2)
+    plot(Ti,IKs,'linewidth',2,'color','b')
     hold on
-    plot(Ti,IKr,'linewidth',2)
+    plot(Ti,IKr,'linewidth',2,'color','r')
     xlabel('Time (ms)','FontSize',12,'FontWeight','bold')
     xlim([900,2000])% adding the "time delay" in each plot
     set(gcf,'Position',[20,20,600,300])

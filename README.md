@@ -1,4 +1,6 @@
-# Slow delayed rectifier current protects ventricular myocytes from arrhythmic dynamics across multiple species: a computational study 
+<p align="center">
+  # Slow delayed rectifier current protects ventricular myocytes from arrhythmic dynamics across multiple species: a computational study 
+</p>
 
 This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie.
 

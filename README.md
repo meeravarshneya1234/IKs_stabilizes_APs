@@ -3,7 +3,7 @@
 This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie. This work was performed in the Cardiac Systems Pharmacology Lab of Dr. Eric A. Sobie in the Department of Pharmacological Sciences at the Icahn School of Medicine Mount Sinai. 
 
 ## Requirements
-* MATLAB - version 2014 or higher; 2016a was used to run all simulations.
+MATLAB - version 2014 or higher; 2016a was used to run all simulations.
 
 ## Usage 
 All figures can be recreated by simply running the "FigureX.m" files. All functions used within each m-file are within the functions folder and have been extensively commented for easy usability. Each model's dydt function was recreated using the equations from the original manuscript. The Heijman model's code was downloaded and edited from the Rudy Lab Website. 

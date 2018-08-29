@@ -8,29 +8,21 @@ This folder contains source code to reproduce the figures and supplemental mater
 * MATLAB - version 2014 or higher; 2016a was used to run all simulations.
 
 ## Ventricular Myocyte Models 
-* Canine  
-  * **Fox Model** [Fox JJ, McHarg JL, Gilmour RF. Ionic mechanism of electrical alternans. *Am J Physiol Heart Circ Physiol*. 2002;282:H516-30.]
-  
-  * **Hund Model** [Hund TJ, Rudy Y. Rate dependence and regulation of action potential and calcium transient in a canine cardiac ventricular cell model.*Circulation*. 2004;110:3168-74.]
-  
-  * **Heijman Model** [Heijman J, Volders PG, Westra RL, Rudy Y. Local control of β-adrenergic stimulation: Effects on ventricular myocyte electrophysiology and Ca2+-transient. *J Mol Cell Cardiol*. 2011;50:863-71.]
+We compared 10 mathematical models describing ventricular myocytes from human, rabbit, canine, and guinea pig. 
 
-* Rabbit 
-  * **Shannon Model** [Shannon TR, Wang F, Puglisi J, Weber C, Bers DM. A mathematical treatment of integrated Ca dynamics within the ventricular myocyte. *Biophys J*. 2004;87:3351-71.]
-  
-* Guinea Pig 
-  * **Livshitz Model** [Livshitz L, Rudy Y. Uniqueness and stability of action potential models during rest, pacing, and conduction using problem-solving environment. *Biophys J*. 2009;97:1265-76.]
-  
-  * **Devenyi Model** [Devenyi RA, Ortega FA, Groenendaal W, Krogh-Madsen T, Christini DJ, Sobie EA. Differential roles of two delayed rectifier potassium currents in regulation of ventricular action potential duration and arrhythmia susceptibility. *J Physiol*. 2017;595:2301-2317.]
+| Canine        | Rabbit         | Guinea Pig     | Human          |
+| :---:         |     :---:      |          :---: |          :---: |
+| [**Fox Model**](https://www.physiology.org/doi/abs/10.1152/ajpheart.00612.2001?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub%3Dpubmed)  | [**Shannon Model**](https://www.sciencedirect.com/science/article/pii/S0006349504738023?via%3Dihub)    | [**Livshitz Model**](https://www.sciencedirect.com/science/article/pii/S000634950901159X?via%3Dihub)    |[**TT04 Model**](https://www.physiology.org/doi/abs/10.1152/ajpheart.00794.2003?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub%3Dpubmed)      |
+| [**Hund Model**](https://www.ahajournals.org/doi/10.1161/01.CIR.0000147231.69595.D3?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub%3Dpubmed)     |       | [**Devenyi Model**](https://physoc.onlinelibrary.wiley.com/doi/abs/10.1113/JP273191)      |[**TT06 Model**](https://www.physiology.org/doi/abs/10.1152/ajpheart.00109.2006?url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org&rfr_dat=cr_pub%3Dpubmed)   |
+| [**Heijman Model**](https://www.sciencedirect.com/science/article/pii/S002228281100068X?via%3Dihub)     |       |    |[**Grandi Model**](https://www.sciencedirect.com/science/article/pii/S0022282809004295?via%3Dihub)     |
+|      |        |  |  [**O'Hara Model**](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002061) |
 
-* Human 
-  * **TT04 Model** [ten Tusscher KH, Noble D, Noble PJ, Panfilov AV. A model for human ventricular tissue. *Am J Physiol Heart Circ Physiol*. 2004;286:H1573-89.]
   
-  * **TT06 Model** [ten Tusscher KH, Panfilov AV. Alternans and spiral breakup in a human ventricular tissue model. *Am J Physiol Heart Circ Physiol*. 2006;291:H1088-100.]
+
   
-  * **Grandi Model** [Grandi E, Pasqualini FS, Bers DM. A novel computational model of the human ventricular action potential and Ca transient. *J Mol Cell Cardiol*. 2010;48:112-21.]
+
   
-  * **O'Hara Model** [O'Hara T, Virág L, Varró A, Rudy Y. Simulation of the undiseased human cardiac ventricular action potential: model formulation and experimental validation. *PLoS Comput Biol*. 2011;7:e1002061.]
+
 
 ## Questions/Contributions
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

@@ -4,8 +4,6 @@
 
 This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie.
 
-![Image of Abstract](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/GAbstract.jpg)
-
 ## Requirements
 * MATLAB - version 2014 or higher; 2016a was used to run all simulations.
 
@@ -19,12 +17,8 @@ We compared 10 mathematical models describing ventricular myocytes from human, r
 | [**Heijman Model**](https://www.sciencedirect.com/science/article/pii/S002228281100068X?via%3Dihub)     |       |    |[**Grandi Model**](https://www.sciencedirect.com/science/article/pii/S0022282809004295?via%3Dihub)     |
 |      |        |  |  [**O'Hara Model**](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002061) |
 
-  
-
-  
-
-  
-
+## Graphical Abstract
+![Image of Abstract](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/GAbstract.jpg)  
 
 ## Questions/Contributions
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

@@ -18,7 +18,7 @@ We compared 10 mathematical models describing ventricular myocytes from human, r
 |      |        |  |  [**O'Hara Model**](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002061) |
 
 ## Graphical Abstract
-![Image of Abstract](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/GAbstract.jpg)  
+![Image of Abstract](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/Graphical_Abstract.jpg)  
 
 ## Questions/Contributions
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

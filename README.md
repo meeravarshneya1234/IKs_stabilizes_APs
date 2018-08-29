@@ -1,7 +1,10 @@
 # Slow delayed rectifier current protects ventricular myocytes from arrhythmic dynamics across multiple species: a computational study    
 This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie.
 
-![Image of Abstract](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/GAbstract.jpg)
+<p align="center">
+   <img src="https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/GAbstract.jpg" width="500" height="256" title="Github Logo">
+</p>
+
 
 ## Requirements
 * MATLAB - version 2014 or higher; 2016a was used to run all simulations.

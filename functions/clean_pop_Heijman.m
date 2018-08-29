@@ -123,8 +123,10 @@ else % EADs present
         Xnew.states(n:settings.totalvars,1)=clean_datatable.states;
         Xnew.APDs(n:settings.totalvars,1)=clean_datatable.APDs;
         Xnew.scalings(n:settings.totalvars,:) = clean_datatable.scaling;
+        Xnew.currents(n:settings.totalvars,:) = clean_datatable.currents;
+
         
-        [APfails,nEADs] = cleandata(Xnew.APDs(:,1),Xnew.times(:,1),Xnew.V(:,1),settings.t_cutoff,settings.flag);
+        [APfails,nEADs] = cleandata(cell2mat(Xnew.APDs(:,1)),Xnew.times(:,1),Xnew.V(:,1),settings.t_cutoff,settings.flag);
         [number_of_failed,~] = find(APfails ==1); % number of failed to repolarize
         [number_of_EADs,~] = find(nEADs==1); % number of EADs
         

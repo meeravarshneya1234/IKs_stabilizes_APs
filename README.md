@@ -4,9 +4,6 @@
 
 This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie.
 
-## Requirements
-* MATLAB - version 2014 or higher; 2016a was used to run all simulations.
-
 ## Ventricular Myocyte Models 
 We analyzed ten published and well-known mathematical models describing ventricular myocytes from human, rabbit, canine, and guinea pig. 
 
@@ -28,9 +25,13 @@ The slow and rapid delayed rectifier K+ currents (IKs and IKr, respectively) are
 
 ![GIF](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/IKsFeedbackLoop.gif)  
 
+## Requirements
+* MATLAB - version 2014 or higher; 2016a was used to run all simulations.
+
+## Usage 
+All figures can be recreated by simply running the "FigureX.m" files. All functions used within each m-file are within the functions folder and have been extensively commented for easy usability. Each model's dydt function was recreated using the equations from the original manuscript. The Heijman model's code was downloaded and edited from the Rudy Lab Website. 
+
 ## Questions/Contributions
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## Citation 

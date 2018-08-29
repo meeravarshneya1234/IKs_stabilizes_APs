@@ -1,6 +1,6 @@
 ![Title](https://github.com/meeravarshneya1234/IKs_stabilizes_APs/blob/master/Title.jpg)  
 
-This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie.
+This folder contains source code to reproduce the figures and supplemental material for "IKs stabilizes ventricular action potential" by Varshneya, Devenyi, and Sobie. This work was performed in the Cardiac Systems Pharmacology Lab of Dr. Eric A. Sobie in the Department of Pharmacological Sciences at the Icahn School of Medicine Mount Sinai. 
 
 ## Ventricular Myocyte Models 
 We analyzed ten published and well-known mathematical models describing ventricular myocytes from human, rabbit, canine, and guinea pig. 

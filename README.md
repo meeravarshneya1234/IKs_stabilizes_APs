@@ -8,7 +8,7 @@ This folder contains source code to reproduce the figures and supplemental mater
 * MATLAB - version 2014 or higher; 2016a was used to run all simulations.
 
 ## Ventricular Myocyte Models 
-We compared 10 mathematical models describing ventricular myocytes from human, rabbit, canine, and guinea pig. 
+We analyzed ten published and well-known mathematical models describing ventricular myocytes from human, rabbit, canine, and guinea pig. 
 
 | Canine        | Rabbit         | Guinea Pig     | Human          |
 | :---:         |     :---:      |          :---: |          :---: |
@@ -27,3 +27,5 @@ The slow and rapid delayed rectifier K+ currents (IKs and IKr, respectively) are
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Citation 

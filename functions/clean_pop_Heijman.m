@@ -84,6 +84,7 @@ else % EADs present
     clean_datatable.states = X.states(~(nEADs' + APfails'));
     clean_datatable.APDs = X.APDs(~(nEADs' + APfails'));
     clean_datatable.scaling = X.scalings(~(nEADs' + APfails'),:);
+    clean_datatable.currents = X.currents(~(nEADs' + APfails'),:);
     
     x = clean_datatable.times(:,1);
     y = clean_datatable.V(:,1);
@@ -96,13 +97,11 @@ else % EADs present
     title('Heijman EADs removed')
     set(fig,'Position',[20,20,600,300])
     
-    
     loop = length(indexs);% number of APs to rerun
     
     while loop > 0 % loop through keep only APs that do not form EADs
         scalings = exp(settings.sigma*randn(18,length(indexs)))' ;
         variations = loop;
-        X1 = []; Xnew = [];
         parfor i = 1:variations
             scaling = scalings(i,:);
             [currents,State,Ti,APD]=mainHRdBA(settings,flags,scaling);
@@ -117,7 +116,7 @@ else % EADs present
         end
         Xnew = reformat_data(X1, variations);
         
-        n = length(indexs) + 1;
+        n = loop + 1;
         Xnew.times(n:settings.totalvars,1)=clean_datatable.times;
         Xnew.V(n:settings.totalvars,1)=clean_datatable.V;
         Xnew.states(n:settings.totalvars,1)=clean_datatable.states;
@@ -125,11 +124,17 @@ else % EADs present
         Xnew.scalings(n:settings.totalvars,:) = clean_datatable.scaling;
         Xnew.currents(n:settings.totalvars,:) = clean_datatable.currents;
 
-        
         [APfails,nEADs] = cleandata(cell2mat(Xnew.APDs(:,1)),Xnew.times(:,1),Xnew.V(:,1),settings.t_cutoff,settings.flag);
         [number_of_failed,~] = find(APfails ==1); % number of failed to repolarize
         [number_of_EADs,~] = find(nEADs==1); % number of EADs
         
+        clean_datatable.times = Xnew.times(~(nEADs' + APfails'));
+        clean_datatable.V = Xnew.V(~(nEADs' + APfails'));
+        clean_datatable.states = Xnew.states(~(nEADs' + APfails'));
+        clean_datatable.APDs = Xnew.APDs(~(nEADs' + APfails'));
+        clean_datatable.scaling = Xnew.scalings(~(nEADs' + APfails'),:);
+        clean_datatable.currents = Xnew.currents(~(nEADs' + APfails'),:);
+
         loop = length(number_of_failed) + length(number_of_EADs);
         
         %check to make sure no duplicates in scalings after rerun
@@ -142,7 +147,8 @@ else % EADs present
             disp('Population contains duplicate scalings')
         end
     end
-    
+    Xnew = clean_datatable;
+
     figure
     hold on
     cellfun(@(x,y) plot(x,y,'linewidth',2),x,y)

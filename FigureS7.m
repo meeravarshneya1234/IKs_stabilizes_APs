@@ -96,7 +96,7 @@ for i = 1:length(modelnames)
 
 end 
 
-X1.Heijman = FigureS6Heijman();
+X1.Heijman = FigureS7Heijman();
 
 models = {'Fox','Hund','Heijman','Livshitz','Devenyi','Shannon','TT04','TT06','Ohara','Grandi'};
 figure % plot Baseline AUC of ICaL for all models 

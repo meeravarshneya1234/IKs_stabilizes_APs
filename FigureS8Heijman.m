@@ -1,5 +1,5 @@
 function datatable = FigureS8Heijman
-%% Figure S7 Heijman: Inducing proarrhythmic behavior through constant inward current 
+%% Figure S8 Heijman: Inducing proarrhythmic behavior through constant inward current 
 %% inject in Heijman model. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,6 +43,7 @@ flags.ICaL = 1; flags.IKs = 1; flags.PLB = 1; flags.TnI = 1; flags.INa = 1;
 flags.INaK = 1; flags.RyR = 1; flags.IKur = 1;
 
 Injects = [0 0.1 0.2]; %amount of current to inject into cell [A/F]
+colors = hsv(length(Injects));
 
 figure
 fig = gcf;
@@ -61,7 +62,7 @@ for ii = 1:length(Injects)
     V = State(:,1);
    
     figure(fig)
-    plot(Ti,V,'linewidth',2)
+    plot(Ti,V,'linewidth',2,'color',colors(ii,:))
     xlim([900,2000]) % adding the "time delay" in each plot
     xlabel('time (ms)')
     ylabel('V (mv)')

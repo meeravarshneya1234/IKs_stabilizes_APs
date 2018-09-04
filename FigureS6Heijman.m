@@ -22,8 +22,8 @@ function X_Heijman = FigureS6Heijman()
 
 %---: Functions required to run this script :---%
 % mainHRdBA.m - runs Heijman model simulation (downloaded code online)
-% clean_pop_Heijman.m - 
-% reformat_data.m - 
+% clean_pop_Heijman.m - inspects for AP population for EADs and returns population with no EAD
+% reformat_data.m - restructures output from the pop_program.m 
 %--------------------------------------------------------------------------
 %%
 % settings
@@ -32,7 +32,7 @@ settings.freq =100;
 settings.storeLast = 1;
 settings.stimdur = 2;
 settings.Istim = -36.7;
-settings.showProgress = 1;
+settings.showProgress = 0;
 
 % parameters to vary to create population, set to 1 for default
 c.ICaLB = 1; c.IKsB = 1; c.IKrB = 1; c.INaKB =1; c.INaCaB = 1; c.IKpB = 1;
@@ -71,9 +71,10 @@ end
 
 X = reformat_data(X,variations);
 X_Heijman = clean_pop_Heijman(settings,flags,X);
-normAPDs = X_Heijman.APDs - median(X_Heijman.APDs);
+normAPDs = cell2mat(X_Heijman.APDs) - median(cell2mat(X_Heijman.APDs));
 temp = min(normAPDs):25:max(normAPDs);
 bins = linspace(min(normAPDs),max(normAPDs),length(temp));
+APDs = cell2mat(X_Heijman.APDs);
 medians_Heijman = median(APDs);
 
 pert1 = prctile(APDs,90);

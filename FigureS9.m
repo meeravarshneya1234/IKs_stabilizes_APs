@@ -16,7 +16,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %--------------------------------------------------------------------------
-%% Figure S8A
+%% Figure S9A
 %--- Description of Figure:
 % The scaling factor (ICaL factor) by which the calcium current was
 % increased does not correlate with the levels of Iks. Since the baseline
@@ -46,7 +46,7 @@ ylabel('ICaL Factor')
 title('Figure S9A')
 set(gca,'FontSize',12,'FontWeight','bold')
 
-%% Figure S8B
+%% Figure S9B
 %--- Description of Figure:
 % The percent change in APD between the APD when 0.1 A/F inward current was
 % injected into the models and the baseline APD was calculated and compared

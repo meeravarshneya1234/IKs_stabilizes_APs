@@ -82,7 +82,7 @@ for i = 1:length(modelnames)
     inject_datatable.(str) = Xnew;     
 end 
 
-inject_datatable.Heijman = FigureS7Heijman();
+inject_datatable.Heijman = FigureS8Heijman();
 
 %---- Plot Summary Plot ----%
 models = {'Fox','Hund','Heijman','Livshitz','Devenyi','Shannon','TT04','TT06','Ohara','Grandi'};

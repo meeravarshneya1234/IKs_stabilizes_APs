@@ -6,7 +6,7 @@ This folder contains source code to reproduce the figures and supplemental mater
 MATLAB - version 2014 or higher; 2016a was used to run all simulations.
 
 ## Usage 
-All figures can be recreated by simply running the "FigureX.m" files. All functions used within each m-file are within the functions folder and have been extensively commented for easy usability. Each model's dydt function was recreated using the equations from the original manuscript. The Heijman model's code was downloaded and edited from the Rudy Lab Website. 
+Figures can be recreated by running the "FigureX.m" files. Functions used within each m-file are within the functions folder and have been extensively commented for easy usability. Each model's dydt function was recreated using the equations from the original manuscript. The Heijman model's code was downloaded and edited from the Rudy Lab Website. 
 
 ## Ventricular Myocyte Models 
 We analyzed ten published and well-known mathematical models describing ventricular myocytes from human, rabbit, canine, and guinea pig. 

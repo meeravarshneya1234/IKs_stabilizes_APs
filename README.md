@@ -33,3 +33,4 @@ The slow and rapid delayed rectifier K+ currents (IKs and IKr, respectively) are
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Citation 
+M. Varshneya, R. A. Devenyi, and E. A. Sobie, “Slow Delayed Rectifier Current Protects Ventricular Myocytes From Arrhythmic Dynamics Across Multiple Species,” Circ. Arrhythmia Electrophysiol., vol. 11, no. 10, Oct. 2018.

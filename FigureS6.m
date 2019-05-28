@@ -30,7 +30,7 @@
 %---- Set Up Simulation Protocol ----%
 modelnames = {'Fox','Hund','Shannon','Livshitz','Devenyi','TT06'};
 
-celltypes = {'','','','','','endo','endo','endo'}; % size should be same as modelnames, enter one for each model
+celltypes = {'','','','','','endo'}; % size should be same as modelnames, enter one for each model
 % options only available for human models as follows:
 % TT04, TT06, Ohara -> 'epi', 'endo', or 'mid' 
 % Grandi -> 'epi' or 'endo' 
